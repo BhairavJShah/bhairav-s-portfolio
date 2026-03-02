@@ -1,5 +1,4 @@
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
-import { motion, AnimatePresence } from 'framer-motion';
 import { useEffect } from 'react';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
@@ -30,50 +29,55 @@ const ScrollToTop = () => {
   return null;
 };
 
-const Home = () => (
-  <>
-    <Hero />
-    <TechnicalMetrics />
-    <Projects />
-    <About />
-    <Skills />
-    <Contact />
-  </>
-);
-
 function App() {
   return (
     <Router>
       <ScrollToTop />
-      <div style={{ backgroundColor: 'var(--bg-color)', minHeight: '100vh', position: 'relative' }}>
+      <div style={{ backgroundColor: 'var(--bg-color)', minHeight: '100vh', width: '100%', position: 'relative' }}>
         <VibeBackground />
         <CustomCursor />
         <ThemeToggle />
         <Navbar />
         
-        <div style={{ width: '100%', position: 'relative', zIndex: 1 }}>
+        <main style={{ width: '100%', position: 'relative', zIndex: 1 }}>
           <Routes>
-            <Route path="/" element={<Home />} />
+            <Route path="/" element={
+              <div style={{ width: '100%', opacity: 1, visibility: 'visible' }}>
+                <Hero />
+                <TechnicalMetrics />
+                <Projects />
+                <About />
+                <Skills />
+                <Contact />
+              </div>
+            } />
             <Route path="/project/:id" element={<CaseStudy />} />
-            <Route path="*" element={<Home />} />
+            <Route path="*" element={
+              <div style={{ width: '100%' }}>
+                <Hero />
+                <TechnicalMetrics />
+                <Projects />
+                <About />
+                <Skills />
+                <Contact />
+              </div>
+            } />
           </Routes>
-        </div>
+        </main>
 
         <style>{`
-          html {
-            scroll-behavior: smooth;
-            background-color: var(--bg-color);
-          }
-          body {
+          html, body {
             margin: 0;
             padding: 0;
+            background-color: var(--bg-color) !important;
+            color: var(--text-primary);
             overflow-x: hidden;
-            background-color: var(--bg-color);
+            width: 100%;
           }
-          #root { width: 100%; }
-          ::selection {
-            background-color: #fff;
-            color: #000;
+          #root { 
+            width: 100%;
+            min-height: 100vh;
+            display: block !important;
           }
         `}</style>
       </div>

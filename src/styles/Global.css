@@ -44,19 +44,7 @@ body {
   overflow-x: hidden;
 }
 
-/* Noise Texture Overlay */
-body::before {
-  content: "";
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-image: url("https://grainy-gradients.vercel.app/noise.svg");
-  opacity: 0.04;
-  pointer-events: none;
-  z-index: 9999;
-}
+/* Noise Texture Overlay Removed */
 
 h1, h2, h3 {
   font-weight: 700;

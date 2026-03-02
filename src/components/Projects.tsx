@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { ExternalLink, Terminal, Cpu, Database } from 'lucide-react';
+import { ExternalLink, Cpu, Database } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import '../styles/Global.css';
 

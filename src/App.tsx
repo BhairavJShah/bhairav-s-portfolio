@@ -42,7 +42,7 @@ function App() {
         <main style={{ width: '100%', position: 'relative', zIndex: 1 }}>
           <Routes>
             <Route path="/" element={
-              <div style={{ width: '100%', opacity: 1, visibility: 'visible' }}>
+              <div style={{ width: '100%' }}>
                 <Hero />
                 <TechnicalMetrics />
                 <Projects />
@@ -74,11 +74,7 @@ function App() {
             overflow-x: hidden;
             width: 100%;
           }
-          #root { 
-            width: 100%;
-            min-height: 100vh;
-            display: block !important;
-          }
+          #root { width: 100%; min-height: 100vh; display: block !important; }
         `}</style>
       </div>
     </Router>

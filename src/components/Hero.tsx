@@ -28,7 +28,7 @@ const Hero = () => {
             <a href="#projects" className="btn btn-primary" style={{ padding: '1.5rem 3rem' }}>
               View My Work
             </a>
-            <a href="#" className="btn" style={{ padding: '1.5rem 3rem' }}>
+            <a href="https://github.com/BhairavJShah" target="_blank" className="btn" style={{ padding: '1.5rem 3rem' }}>
               Download Resume
             </a>
           </div>

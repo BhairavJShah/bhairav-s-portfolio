@@ -3,7 +3,6 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { useDevice } from '../hooks/useDevice';
 import { useLenis } from 'lenis/react';
 import Magnetic from './Magnetic';
-import logo from '../assets/logo.png';
 
 const Navbar = () => {
   const [activeSection, setActiveSection] = useState('home');
@@ -105,7 +104,7 @@ const Navbar = () => {
   return (
     <header style={{ 
       position: 'fixed', 
-      top: 0, 
+      bottom: 0, 
       left: 0,
       width: '100%', 
       display: 'flex', 
@@ -126,41 +125,11 @@ const Navbar = () => {
           padding: isMobile ? '0.6rem 1rem' : '0.8rem 1rem',
           borderRadius: '100px',
           border: '1px solid var(--panel-border)',
-          boxShadow: scrolled ? '0 20px 50px var(--shadow)' : 'none',
+          boxShadow: scrolled ? '0 -20px 50px var(--shadow)' : 'none',
           transition: 'all 0.5s cubic-bezier(0.16, 1, 0.3, 1)',
           pointerEvents: 'auto'
         }}
       >
-        <Magnetic>
-          <div 
-            onClick={() => handleNavClick('home')}
-            style={{ 
-              display: 'flex', 
-              alignItems: 'center', 
-              padding: '0 1rem', 
-              cursor: 'pointer',
-              height: isMobile ? '30px' : '40px',
-              transition: 'transform 0.3s ease'
-            }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.transform = 'scale(1.1)';
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.transform = 'scale(1)';
-            }}
-          >
-            <img 
-              src={logo} 
-              alt="Logo" 
-              style={{ 
-                height: '100%', 
-                width: 'auto',
-                borderRadius: '8px'
-              }} 
-            />
-          </div>
-        </Magnetic>
-
         {navLinks.map((link) => (
           <Magnetic key={link.id}>
             <button

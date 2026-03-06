@@ -2,8 +2,8 @@
 
 :root {
   /* Common variables */
-  --container-width: 1800px;
-  --transition-speed: 0.5s;
+  --container-width: 1920px;
+  --transition-speed: 0.4s;
   --transition-ease: cubic-bezier(0.16, 1, 0.3, 1);
   
   /* Apple System Font Stack */
@@ -83,16 +83,16 @@ section {
 }
 
 .content-block {
-  margin: 0 2.5vw;
-  padding: clamp(2rem, 6vh, 6rem) 3.5vw;
+  margin: 0 1.5vw;
+  padding: clamp(1.5rem, 4vh, 4rem) 2.5vw;
   background: var(--panel-bg);
   border: 1px solid var(--panel-border);
-  border-radius: 48px;
+  border-radius: 32px;
   backdrop-filter: blur(40px);
   -webkit-backdrop-filter: blur(40px);
   position: relative;
   overflow: hidden;
-  box-shadow: 0 40px 100px var(--shadow);
+  box-shadow: 0 30px 80px var(--shadow);
   transition: background-color var(--transition-speed) var(--transition-ease), border-color var(--transition-speed) var(--transition-ease), box-shadow var(--transition-speed) var(--transition-ease);
 }
 

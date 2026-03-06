@@ -6,8 +6,8 @@ export const useTextScramble = (phrases: string[], cycleDelay = 5000) => {
   const [displayText, setDisplayText] = useState('');
   const [isDone, setIsDone] = useState(false);
   const [phraseIndex, setPhraseIndex] = useState(0);
-  const intervalRef = useRef<NodeJS.Timeout | null>(null);
-  const timeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const intervalRef = useRef<any>(null);
+  const timeoutRef = useRef<any>(null);
 
   useEffect(() => {
     const phrase = phrases[phraseIndex];

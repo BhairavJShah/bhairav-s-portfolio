@@ -1,82 +1,82 @@
-import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
-import { useEffect } from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import ReactLenis from 'lenis/react';
+import { AnimatePresence } from 'framer-motion';
+
+import Preloader from './components/Preloader';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
-import TechnicalMetrics from './components/TechnicalMetrics';
 import About from './components/About';
 import Projects from './components/Projects';
 import Skills from './components/Skills';
 import Contact from './components/Contact';
-import CustomCursor from './components/CustomCursor';
-import ThemeToggle from './components/ThemeToggle';
-import VibeBackground from './components/VibeBackground';
+import ExploreProjects from './components/ExploreProjects';
 import CaseStudy from './components/CaseStudy';
+import ThemeToggle from './components/ThemeToggle';
+
 import './styles/Global.css';
 
-const ScrollToTop = () => {
-  const { pathname, hash } = useLocation();
-  useEffect(() => {
-    if (!hash) {
-      window.scrollTo(0, 0);
-    } else {
-      const id = hash.replace('#', '');
-      const element = document.getElementById(id);
-      if (element) {
-        element.scrollIntoView({ behavior: 'smooth' });
-      }
-    }
-  }, [pathname, hash]);
-  return null;
-};
+const Home = () => (
+  <div style={{ position: 'relative', zIndex: 10, width: '100%' }}>
+    <Hero />
+    <About />
+    <Projects />
+    <Skills />
+    <Contact />
+  </div>
+);
 
 function App() {
+  const [isLoading, setIsLoading] = useState(true);
+  const [theme, setTheme] = useState<'light' | 'dark'>(() => {
+    const savedTheme = localStorage.getItem('theme');
+    return (savedTheme as 'light' | 'dark') || 'dark';
+  });
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsLoading(false);
+    }, 2500); 
+    return () => clearTimeout(timer);
+  }, []);
+
+  useEffect(() => {
+    document.documentElement.setAttribute('data-theme', theme);
+    localStorage.setItem('theme', theme);
+  }, [theme]);
+
+  const toggleTheme = () => {
+    setTheme(prev => (prev === 'dark' ? 'light' : 'dark'));
+  };
+
   return (
     <Router>
-      <ScrollToTop />
-      <div style={{ backgroundColor: 'var(--bg-color)', minHeight: '100vh', width: '100%', position: 'relative' }}>
-        <VibeBackground />
-        <CustomCursor />
-        <ThemeToggle />
-        <Navbar />
-        
-        <main style={{ width: '100%', position: 'relative', zIndex: 1 }}>
-          <Routes>
-            <Route path="/" element={
-              <div style={{ width: '100%' }}>
-                <Hero />
-                <TechnicalMetrics />
-                <Projects />
-                <About />
-                <Skills />
-                <Contact />
-              </div>
-            } />
-            <Route path="/project/:id" element={<CaseStudy />} />
-            <Route path="*" element={
-              <div style={{ width: '100%' }}>
-                <Hero />
-                <TechnicalMetrics />
-                <Projects />
-                <About />
-                <Skills />
-                <Contact />
-              </div>
-            } />
-          </Routes>
-        </main>
+      <ReactLenis root options={{ lerp: 0.05, smoothWheel: true }}>
+        <div style={{ minHeight: '100vh', width: '100%', position: 'relative', backgroundColor: 'var(--bg-color)', transition: 'background-color 0.5s ease' }}>
+          
+          <AnimatePresence mode="wait">
+            {isLoading && <Preloader key="preloader" />}
+          </AnimatePresence>
 
-        <style>{`
-          html, body {
-            margin: 0;
-            padding: 0;
-            background-color: var(--bg-color) !important;
-            color: var(--text-primary);
-            overflow-x: hidden;
-            width: 100%;
-          }
-          #root { width: 100%; min-height: 100vh; display: block !important; }
-        `}</style>
-      </div>
+          <Navbar />
+          <ThemeToggle theme={theme} toggleTheme={toggleTheme} />
+          
+          <main style={{ position: 'relative', zIndex: 10, width: '100%' }}>
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/home" element={<Home />} />
+              <Route path="/about" element={<Home />} />
+              <Route path="/projects" element={<Home />} />
+              <Route path="/skills" element={<Home />} />
+              <Route path="/contact" element={<Home />} />
+              <Route path="/explore" element={<ExploreProjects />} />
+              <Route path="/project/:id" element={<CaseStudy />} />
+              <Route path="*" element={<Home />} />
+            </Routes>
+          </main>
+
+        </div>
+      </ReactLenis>
     </Router>
   );
 }

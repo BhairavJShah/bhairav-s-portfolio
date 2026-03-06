@@ -1,97 +1,166 @@
+@import url('https://fonts.googleapis.com/css2?family=Syncopate:wght@400;700&family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+
 :root {
-  /* Dark Mode (Default) */
-  --bg-color: #030303;
-  --bg-card: #0a0a0c;
-  --nav-bg: rgba(10, 10, 12, 0.7);
-  --pill-bg: rgba(255, 255, 255, 0.1);
-  --text-primary: #ffffff;
-  --text-secondary: #8e8e93;
-  --accent: #ffffff;
-  --accent-blue: #0071e3;
-  --accent-emerald: #10b981;
-  --border: rgba(255, 255, 255, 0.08);
-  --container-width: 1200px;
-  /* Fluid padding: 60px at 320px width to 120px at 1200px width */
-  --section-padding: clamp(60px, 10vw, 120px) 24px;
-  --transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  /* Common variables */
+  --container-width: 1800px;
+  --transition-speed: 0.5s;
+  --transition-ease: cubic-bezier(0.16, 1, 0.3, 1);
+  
+  /* Apple System Font Stack */
+  --font-apple: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", "Helvetica Neue", "Inter", "Segoe UI", Roboto, Arial, sans-serif;
 }
 
-.light-mode {
+[data-theme='dark'] {
+  --bg-color: #050505;
+  --text-main: #ffffff;
+  --text-sub: #888888;
+  --panel-bg: rgba(255, 255, 255, 0.02);
+  --panel-border: rgba(255, 255, 255, 0.05);
+  --card-bg: rgba(20, 20, 20, 0.4);
+  --shadow: rgba(0, 0, 0, 0.5);
+  --outline-stroke: rgba(255, 255, 255, 0.4);
+  --accent: #00ffcc; /* High-power Cyan */
+  --accent-soft: rgba(0, 255, 204, 0.1);
+  --accent-border: rgba(0, 255, 204, 0.2);
+}
+
+[data-theme='light'] {
   --bg-color: #f5f5f7;
-  --bg-card: #ffffff;
-  --nav-bg: rgba(245, 245, 247, 0.7);
-  --pill-bg: rgba(0, 0, 0, 0.05);
-  --text-primary: #1d1d1f;
-  --text-secondary: #86868b;
-  --accent: #1d1d1f;
-  --border: rgba(0, 0, 0, 0.08);
+  --text-main: #1d1d1f;
+  --text-sub: #86868b;
+  --panel-bg: rgba(0, 0, 0, 0.02);
+  --panel-border: rgba(0, 0, 0, 0.05);
+  --card-bg: rgba(255, 255, 255, 0.6);
+  --shadow: rgba(0, 0, 0, 0.1);
+  --outline-stroke: rgba(0, 0, 0, 0.2);
+  --accent: #007aff; /* Premium Apple Blue */
+  --accent-soft: rgba(0, 122, 255, 0.1);
+  --accent-border: rgba(0, 122, 255, 0.2);
 }
 
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  cursor: none !important;
-  transition: background-color 0.5s ease, color 0.5s ease, border-color 0.5s ease;
 }
 
 body {
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
   background-color: var(--bg-color);
-  color: var(--text-primary);
-  line-height: 1.5;
-  -webkit-font-smoothing: antialiased;
+  color: var(--text-main);
+  font-family: var(--font-apple);
   overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  transition: background-color var(--transition-speed) var(--transition-ease), color var(--transition-speed) var(--transition-ease);
 }
 
-/* Noise Texture Overlay Removed */
+/* We use Syncopate only for specific massive headers to keep the "Architect" feel, 
+   but all other words use the Apple system font. */
+h1, h2, h3, h4, .title {
+  font-family: var(--font-apple); /* Switched to Apple Font for all words */
+  text-transform: uppercase;
+  letter-spacing: -0.02em;
+}
 
-h1, h2, h3 {
+/* Keep Syncopate strictly for the massive title-massive components for style */
+.title-massive {
+  font-family: 'Syncopate', sans-serif !important;
+  font-size: clamp(2rem, 8vw, 7rem);
   font-weight: 700;
-  letter-spacing: -0.04em;
+  line-height: 0.9;
+  letter-spacing: -0.05em;
 }
 
-section {
-  padding: var(--section-padding);
+.container {
+  width: 100%;
   max-width: var(--container-width);
   margin: 0 auto;
 }
 
-.btn {
+section {
+  padding: 2rem 0;
+  width: 100%;
+  position: relative;
+}
+
+.content-block {
+  margin: 0 2.5vw;
+  padding: clamp(2rem, 6vh, 6rem) 3.5vw;
+  background: var(--panel-bg);
+  border: 1px solid var(--panel-border);
+  border-radius: 48px;
+  backdrop-filter: blur(40px);
+  -webkit-backdrop-filter: blur(40px);
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 40px 100px var(--shadow);
+  transition: background-color var(--transition-speed) var(--transition-ease), border-color var(--transition-speed) var(--transition-ease), box-shadow var(--transition-speed) var(--transition-ease);
+}
+
+.title-outline {
+  color: transparent;
+  -webkit-text-stroke: 1px var(--outline-stroke);
+  transition: all 0.3s ease;
+}
+
+.title-outline:hover {
+  -webkit-text-stroke: 1px var(--accent);
+  color: var(--accent-soft);
+}
+
+.glass-card {
+  background: var(--card-bg);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--panel-border);
+  border-radius: 30px;
+  transition: transform 0.4s var(--transition-ease), border-color 0.4s ease;
+}
+
+.btn-cyber {
   display: inline-flex;
   align-items: center;
-  padding: 1rem 2rem;
+  gap: 1rem;
+  padding: 1.2rem 3rem;
+  background: transparent;
+  color: var(--text-main);
+  font-family: var(--font-apple); /* Switched to Apple Font */
+  font-size: 0.9rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  border: 1px solid var(--outline-stroke);
   border-radius: 100px;
-  font-weight: 600;
-  cursor: pointer;
-  border: 1px solid var(--border);
-  background: rgba(128, 128, 128, 0.05);
-  color: var(--text-primary);
-  backdrop-filter: blur(10px);
-  transition: var(--transition);
+  text-transform: uppercase;
+  transition: all 0.4s var(--transition-ease);
+  text-decoration: none;
+  position: relative;
+  overflow: hidden;
 }
 
-.btn-primary {
-  background: var(--text-primary);
-  color: var(--bg-color);
-  border: none;
+.btn-cyber::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; width: 100%; height: 100%;
+  background: var(--accent);
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 0.4s var(--transition-ease);
+  z-index: -1;
 }
 
-.btn-primary:hover {
-  transform: scale(1.05);
-  box-shadow: 0 20px 40px rgba(255, 255, 255, 0.1);
+.btn-cyber:hover {
+  color: #fff; 
+  border-color: var(--accent);
 }
 
-.section-title {
-  font-size: clamp(2.5rem, 8vw, 4.5rem);
-  margin-bottom: 4rem;
-  text-align: left;
-  line-height: 1;
+.btn-cyber:hover::before {
+  transform: scaleX(1);
+  transform-origin: left;
 }
 
-@media (max-width: 768px) {
-  :root {
-    --section-padding: 100px 20px;
-  }
-  * { cursor: auto !important; }
+html.lenis, html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
 }

@@ -1,49 +1,124 @@
 import { motion } from 'framer-motion';
-import '../styles/Global.css';
+import { ArrowRight, Download, Terminal } from 'lucide-react';
+import Magnetic from './Magnetic';
+import NetworkBackground from './NetworkBackground';
+import { useRef } from 'react';
+import gsap from 'gsap';
+import { useGSAP } from '@gsap/react';
+import { useTextScramble } from '../hooks/useTextScramble';
+
+const PHRASES = [
+  "I bridge the gap between robust Java-based engineering and modern AI orchestration.",
+  "Operating entirely within a Linux environment, I build scalable mobile and desktop applications.",
+  "Architecting high-concurrency systems with a focus on fault tolerance and system reliability.",
+  "Leveraging Vibe Coding and Prompt Engineering to accelerate production cycles by up to 3x.",
+  "Specializing in GenAI content pipelines and advanced Chain-of-Thought AI integration.",
+  "Engineering seamless full-stack experiences across Android, iOS, and high-power web platforms."
+];
 
 const Hero = () => {
+  const titleRef = useRef(null);
+  const { displayText, isDone } = useTextScramble(PHRASES, 5000);
+
+  useGSAP(() => {
+    gsap.fromTo('.hero-text-line', 
+      { y: 100, opacity: 0, rotateX: 45 },
+      { y: 0, opacity: 1, rotateX: 0, duration: 1.2, stagger: 0.1, ease: 'power4.out', delay: 2.5 }
+    );
+  });
+
   return (
-    <section id="home" style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', position: 'relative', padding: 'var(--section-padding)' }}>
-      <div style={{ width: '100%', opacity: 1 }}>
-        <div style={{ marginBottom: '2rem', display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
-          <span style={{ fontSize: '0.8rem', fontWeight: 600, padding: '0.4rem 1rem', borderRadius: '100px', backgroundColor: 'rgba(16, 185, 129, 0.1)', border: '1px solid rgba(16, 185, 129, 0.2)', color: 'var(--accent-emerald)', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-            <span style={{ width: '6px', height: '6px', borderRadius: '50%', backgroundColor: 'var(--accent-emerald)' }} />
-            Linux / Neovim
-          </span>
-          <span style={{ fontSize: '0.8rem', fontWeight: 600, padding: '0.4rem 1rem', borderRadius: '100px', backgroundColor: 'rgba(0, 113, 227, 0.1)', border: '1px solid rgba(0, 113, 227, 0.2)', color: 'var(--accent-blue)', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-            Vibe Coding / Claude 3.5
-          </span>
-        </div>
+    <section id="home" style={{ paddingTop: '150px' }}>
+      <div className="content-block" style={{ minHeight: '80vh', display: 'flex', flexDirection: 'column', justifyContent: 'center', background: 'transparent' }}>
         
-        <h1 style={{ fontSize: 'clamp(3rem, 9vw, 6.5rem)', margin: '0 0 4rem', lineHeight: 0.9, letterSpacing: '-0.06em', fontWeight: 800, color: 'var(--text-primary)' }}>
-          Full-Stack Developer <br /> & Linux <span style={{ color: 'var(--accent-emerald)' }}>Power User.</span>
-        </h1>
+        {/* 3D Custom Network Interaction Layer */}
+        <NetworkBackground />
 
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(350px, 1fr))', gap: '4rem', alignItems: 'start' }}>
-          <p style={{ color: 'var(--text-secondary)', fontSize: '1.25rem', maxWidth: '500px', lineHeight: 1.5 }}>
-            I bridge the gap between robust **Java-based** engineering and modern AI orchestration. Leveraging **Linux** as my primary environment, I build scalable **mobile and desktop applications** using **Vibe Coding** and **Prompt Engineering**.
-          </p>
+        <div className="container" style={{ position: 'relative', zIndex: 10, pointerEvents: 'auto' }}>
+          
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '3rem' }}>
+            
+            {/* Main Typography Block */}
+            <div ref={titleRef} style={{ display: 'flex', flexDirection: 'column' }}>
+              <div style={{ overflow: 'hidden' }}>
+                <h1 className="title-massive hero-text-line" style={{ color: 'var(--text-main)', fontSize: 'clamp(2.5rem, 8vw, 7.5rem)', lineHeight: 1 }}>
+                  FULL-STACK DEVELOPER
+                </h1>
+              </div>
+              
+              <div style={{ overflow: 'hidden' }}>
+                <h1 className="title-massive title-outline hero-text-line" style={{ color: 'var(--text-main)', fontSize: 'clamp(2.5rem, 8vw, 7.5rem)', lineHeight: 1 }}>
+                  & LINUX POWER USER.
+                </h1>
+              </div>
+            </div>
 
-          <div style={{ display: 'flex', gap: '2rem', flexWrap: 'wrap' }}>
-            <a href="#projects" className="btn btn-primary" style={{ padding: '1.5rem 3rem' }}>
-              View My Work
-            </a>
-            <a href="https://github.com/BhairavJShah" target="_blank" className="btn" style={{ padding: '1.5rem 3rem' }}>
-              Download Resume
-            </a>
+            {/* Description and CTA */}
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', flexWrap: 'wrap', gap: '4rem' }}>
+              <motion.div 
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 3, duration: 1 }}
+                style={{ display: 'flex', flexDirection: 'column', gap: '2.5rem', maxWidth: '900px' }}
+              >
+                <p style={{ 
+                  color: 'var(--text-sub)', 
+                  fontSize: 'clamp(1.1rem, 2vw, 1.5rem)', 
+                  lineHeight: 1.6, 
+                  fontWeight: 400,
+                  fontFamily: 'monospace',
+                  minHeight: '120px'
+                }}>
+                  {displayText}
+                  {!isDone && <span className="scramble-cursor">_</span>}
+                </p>
+
+                <div style={{ display: 'flex', gap: '1.5rem', flexWrap: 'wrap', marginBottom: '2rem' }}>
+                  <Magnetic>
+                    <a href="#projects" className="btn-cyber" style={{ background: 'var(--accent)', color: '#000', border: 'none' }}>
+                      VIEW MY WORK <ArrowRight size={20} />
+                    </a>
+                  </Magnetic>
+                  
+                  <Magnetic>
+                    <a href="/bhairav_resume.pdf" download="Bhairav_Shah_Resume.pdf" className="btn-cyber" style={{ background: 'transparent', borderColor: 'var(--panel-border)' }}>
+                      DOWNLOAD RESUME <Download size={20} />
+                    </a>
+                  </Magnetic>
+                </div>
+              </motion.div>
+
+              <div style={{ textAlign: 'right' }}>
+                <span style={{ color: 'var(--text-sub)', fontSize: '0.7rem', fontWeight: 800, letterSpacing: '0.3em' }}>
+                  LOC: 12.9716° N, 77.5946° E<br/>
+                  UTC+05:30
+                </span>
+              </div>
+            </div>
+
           </div>
+        </div>
+
+        <div style={{ position: 'absolute', bottom: '5vh', left: '5vw', color: 'var(--text-sub)', fontSize: '0.8rem', letterSpacing: '0.5em', fontWeight: 800, display: 'flex', alignItems: 'center', gap: '1rem', zIndex: 11 }}>
+          <Terminal size={14} /> KERNEL: OPTIMIZED // ENV: LINUX
         </div>
       </div>
 
-      <motion.div 
-        animate={{ scale: [1, 1.2, 1], opacity: [0.3, 0.5, 0.3] }}
-        transition={{ duration: 8, repeat: Infinity, ease: 'linear' }}
-        style={{
-          position: 'absolute', top: '10%', right: '5%', width: '500px', height: '500px',
-          background: 'radial-gradient(circle, rgba(0, 113, 227, 0.15) 0%, transparent 70%)',
-          filter: 'blur(100px)', zIndex: -1
-        }} 
-      />
+      <style>{`
+        .scramble-cursor {
+          display: inline-block;
+          width: 10px;
+          height: 1.2em;
+          background: var(--accent);
+          margin-left: 5px;
+          animation: blink 0.8s infinite;
+          vertical-align: middle;
+        }
+        @keyframes blink {
+          0%, 100% { opacity: 1; }
+          50% { opacity: 0; }
+        }
+      `}</style>
     </section>
   );
 };

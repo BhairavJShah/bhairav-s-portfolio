@@ -10,7 +10,6 @@ const VoxelGrid = ({ theme }: { theme: 'light' | 'dark' }) => {
   // Grid parameters
   const gridSize = 15;
   const spacing = 1.5;
-  const count = gridSize * gridSize;
   
   const accentColor = theme === 'dark' ? "#00ffcc" : "#007aff";
   const boxColor = theme === 'dark' ? "#111111" : "#e0e0e0";
@@ -107,7 +106,13 @@ const DataStreams = ({ theme }: { theme: 'light' | 'dark' }) => {
   return (
     <points ref={pointsRef}>
       <bufferGeometry>
-        <bufferAttribute attach="attributes-position" count={count} array={positions} itemSize={3} />
+        <bufferAttribute 
+          attach="attributes-position" 
+          count={count} 
+          array={positions} 
+          itemSize={3} 
+          args={[positions, 3]}
+        />
       </bufferGeometry>
       <pointsMaterial size={0.05} color={accentColor} transparent opacity={0.6} sizeAttenuation />
     </points>

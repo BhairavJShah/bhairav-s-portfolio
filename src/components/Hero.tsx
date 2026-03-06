@@ -36,7 +36,7 @@ const Hero = () => {
       display: 'flex',
       flexDirection: 'column'
     }}>
-      <Particles particleCount={1000} speed={0.3} />
+      <Particles moveSpeed={0.3} />
       <div className="content-block" style={{ 
         flex: 1, 
         display: 'flex', 

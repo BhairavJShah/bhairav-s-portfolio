@@ -2,9 +2,15 @@ import { useState, useEffect, useRef } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useDevice } from '../hooks/useDevice';
 import { useLenis } from 'lenis/react';
+import { Sun, Moon } from 'lucide-react';
 import Magnetic from './Magnetic';
 
-const Navbar = () => {
+interface NavbarProps {
+  theme: 'light' | 'dark';
+  toggleTheme: () => void;
+}
+
+const Navbar = ({ theme, toggleTheme }: NavbarProps) => {
   const [activeSection, setActiveSection] = useState('home');
   const [scrolled, setScrolled] = useState(false);
   const location = useLocation();
@@ -31,12 +37,10 @@ const Navbar = () => {
       const sectionIds = ['home', 'about', 'projects', 'skills', 'contact'];
       let current = 'home';
       
-      // We check from the bottom up to find the lowest section that has passed the mid-point
       for (const id of sectionIds) {
         const element = document.getElementById(id);
         if (element) {
           const rect = element.getBoundingClientRect();
-          // If the top of the section is above the middle of the screen
           if (rect.top <= window.innerHeight / 2) {
             current = id;
           }
@@ -45,8 +49,6 @@ const Navbar = () => {
 
       if (current !== activeSection) {
         setActiveSection(current);
-        // Update URL silently without adding to history
-        window.history.replaceState(null, '', `/${current}`);
       }
     };
 
@@ -54,13 +56,11 @@ const Navbar = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, [activeSection, location.pathname]);
 
-  // Initial scroll to section if URL has a path
   useEffect(() => {
     const path = location.pathname.replace('/', '');
     if (path && ['home', 'about', 'projects', 'skills', 'contact'].includes(path)) {
       const element = document.getElementById(path);
       if (element) {
-        // Wait for preloader/initial load
         setTimeout(() => {
           if (lenis) lenis.scrollTo(element, { immediate: true });
           else element.scrollIntoView();
@@ -68,7 +68,7 @@ const Navbar = () => {
         }, 100);
       }
     }
-  }, [lenis]);
+  }, [lenis, location.pathname]);
 
   const handleNavClick = (id: string) => {
     if (location.pathname === '/explore' || location.pathname.includes('/project/')) {
@@ -88,14 +88,12 @@ const Navbar = () => {
           easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
           onComplete: () => {
             isClickScrolling.current = false;
-            window.history.replaceState(null, '', `/${id}`);
           }
         });
       } else {
         element.scrollIntoView({ behavior: 'smooth' });
         setTimeout(() => {
           isClickScrolling.current = false;
-          window.history.replaceState(null, '', `/${id}`);
         }, 1000);
       }
     }
@@ -104,13 +102,13 @@ const Navbar = () => {
   return (
     <header style={{ 
       position: 'fixed', 
-      bottom: 0, 
+      top: 0, 
       left: 0,
       width: '100%', 
       display: 'flex', 
       justifyContent: 'center', 
       zIndex: 1000, 
-      padding: isMobile ? '1.5rem' : '2.5rem',
+      padding: isMobile ? '1rem' : '2.5rem',
       transition: 'all 0.5s cubic-bezier(0.16, 1, 0.3, 1)',
       pointerEvents: 'none'
     }}>
@@ -118,24 +116,30 @@ const Navbar = () => {
         style={{ 
           display: 'flex', 
           alignItems: 'center',
-          gap: isMobile ? '0.5rem' : '1rem',
+          gap: isMobile ? '2px' : '1rem',
           background: 'var(--card-bg)',
           backdropFilter: 'blur(30px)',
           WebkitBackdropFilter: 'blur(30px)',
-          padding: isMobile ? '0.6rem 1rem' : '0.8rem 1rem',
+          padding: isMobile ? '4px' : '0.8rem 1rem',
           borderRadius: '100px',
           border: '1px solid var(--panel-border)',
-          boxShadow: scrolled ? '0 -20px 50px var(--shadow)' : 'none',
+          boxShadow: scrolled ? '0 20px 50px var(--shadow)' : 'none',
           transition: 'all 0.5s cubic-bezier(0.16, 1, 0.3, 1)',
-          pointerEvents: 'auto'
+          pointerEvents: 'auto',
+          maxWidth: isMobile ? '95vw' : 'auto',
+          overflowX: isMobile ? 'auto' : 'visible',
+          scrollbarWidth: 'none',
+          msOverflowStyle: 'none',
+          WebkitOverflowScrolling: 'touch'
         }}
+        className="nav-container"
       >
         {navLinks.map((link) => (
           <Magnetic key={link.id}>
             <button
               onClick={() => handleNavClick(link.id)}
               style={{ 
-                padding: isMobile ? '0.6rem 1rem' : '0.8rem 2rem',
+                padding: isMobile ? '0.6rem 0.8rem' : '0.8rem 2rem',
                 fontSize: isMobile ? '0.75rem' : '1rem', 
                 fontWeight: activeSection === link.id ? 800 : 600, 
                 color: activeSection === link.id ? 'var(--bg-color)' : 'var(--text-main)',
@@ -148,7 +152,8 @@ const Navbar = () => {
                 letterSpacing: '0.05em',
                 textTransform: 'uppercase',
                 display: 'inline-block',
-                whiteSpace: 'nowrap'
+                whiteSpace: 'nowrap',
+                flexShrink: 0
               }}
               onMouseEnter={(e) => {
                 if (activeSection !== link.id) {
@@ -167,6 +172,34 @@ const Navbar = () => {
             </button>
           </Magnetic>
         ))}
+
+        {/* Vertical Divider */}
+        <div style={{ width: '1px', height: '24px', background: 'var(--panel-border)', margin: isMobile ? '0 4px' : '0 0.5rem' }} />
+
+        {/* Theme Toggle in Navbar */}
+        <Magnetic>
+          <button
+            onClick={toggleTheme}
+            style={{
+              padding: isMobile ? '0.6rem' : '0.8rem',
+              background: 'transparent',
+              border: 'none',
+              borderRadius: '50%',
+              cursor: 'pointer',
+              color: 'var(--text-main)',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              transition: 'all 0.3s ease',
+              opacity: 0.8
+            }}
+            onMouseEnter={(e) => { e.currentTarget.style.opacity = '1'; e.currentTarget.style.background = 'var(--panel-bg)'; }}
+            onMouseLeave={(e) => { e.currentTarget.style.opacity = '0.8'; e.currentTarget.style.background = 'transparent'; }}
+            aria-label="Toggle Theme"
+          >
+            {theme === 'dark' ? <Sun size={isMobile ? 18 : 20} /> : <Moon size={isMobile ? 18 : 20} />}
+          </button>
+        </Magnetic>
       </nav>
     </header>
   );

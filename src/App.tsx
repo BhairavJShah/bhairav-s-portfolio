@@ -12,7 +12,6 @@ import Skills from './components/Skills';
 import Contact from './components/Contact';
 import ExploreProjects from './components/ExploreProjects';
 import CaseStudy from './components/CaseStudy';
-import ThemeToggle from './components/ThemeToggle';
 
 import './styles/Global.css';
 
@@ -58,17 +57,11 @@ function App() {
             {isLoading && <Preloader key="preloader" />}
           </AnimatePresence>
 
-          <Navbar />
-          <ThemeToggle theme={theme} toggleTheme={toggleTheme} />
+          <Navbar theme={theme} toggleTheme={toggleTheme} />
           
           <main style={{ position: 'relative', zIndex: 10, width: '100%' }}>
             <Routes>
               <Route path="/" element={<Home />} />
-              <Route path="/home" element={<Home />} />
-              <Route path="/about" element={<Home />} />
-              <Route path="/projects" element={<Home />} />
-              <Route path="/skills" element={<Home />} />
-              <Route path="/contact" element={<Home />} />
               <Route path="/explore" element={<ExploreProjects />} />
               <Route path="/project/:id" element={<CaseStudy />} />
               <Route path="*" element={<Home />} />

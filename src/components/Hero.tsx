@@ -1,7 +1,7 @@
 import { motion } from 'framer-motion';
 import { ArrowRight, Download, Terminal } from 'lucide-react';
 import Magnetic from './Magnetic';
-import NetworkBackground from './NetworkBackground';
+import Particles from './Particles';
 import { useRef } from 'react';
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
@@ -28,12 +28,27 @@ const Hero = () => {
   });
 
   return (
-    <section id="home" style={{ paddingTop: '150px' }}>
-      <div className="content-block" style={{ minHeight: '80vh', display: 'flex', flexDirection: 'column', justifyContent: 'center', background: 'transparent' }}>
+    <section id="home" style={{ 
+      paddingTop: 'clamp(100px, 15vh, 150px)', 
+      position: 'relative', 
+      overflow: 'hidden',
+      minHeight: '100vh',
+      display: 'flex',
+      flexDirection: 'column'
+    }}>
+      <Particles particleCount={1000} speed={0.3} />
+      <div className="content-block" style={{ 
+        flex: 1, 
+        display: 'flex', 
+        flexDirection: 'column', 
+        justifyContent: 'center', 
+        background: 'transparent',
+        border: 'none',
+        boxShadow: 'none',
+        backdropFilter: 'none',
+        WebkitBackdropFilter: 'none'
+      }}>
         
-        {/* 3D Custom Network Interaction Layer */}
-        <NetworkBackground />
-
         <div className="container" style={{ position: 'relative', zIndex: 10, pointerEvents: 'auto' }}>
           
           <div style={{ display: 'flex', flexDirection: 'column', gap: '3rem' }}>

@@ -1,83 +1,81 @@
-import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
-import { motion, AnimatePresence } from 'framer-motion';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
+import ReactLenis from 'lenis/react';
+import { AnimatePresence } from 'framer-motion';
+
+import Preloader from './components/Preloader';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
-import TechnicalMetrics from './components/TechnicalMetrics';
 import About from './components/About';
 import Projects from './components/Projects';
 import Skills from './components/Skills';
 import Contact from './components/Contact';
-import CustomCursor from './components/CustomCursor';
-import ThemeToggle from './components/ThemeToggle';
-import VibeBackground from './components/VibeBackground';
+import ExploreProjects from './components/ExploreProjects';
 import CaseStudy from './components/CaseStudy';
+
 import './styles/Global.css';
 
-const ScrollToTop = () => {
-  const { pathname, hash } = useLocation();
-  useEffect(() => {
-    if (!hash) {
-      window.scrollTo(0, 0);
-    } else {
-      const id = hash.replace('#', '');
-      const element = document.getElementById(id);
-      if (element) {
-        element.scrollIntoView({ behavior: 'smooth' });
-      }
-    }
-  }, [pathname, hash]);
-  return null;
-};
-
-const Home = () => (
-  <>
+// Component mapping for clean state-based rendering
+const Home = ({ onViewChange }: { onViewChange: (view: string, id?: string) => void }) => (
+  <div style={{ position: 'relative', zIndex: 10, width: '100%' }}>
     <Hero />
-    <TechnicalMetrics />
-    <Projects />
     <About />
+    <Projects onViewChange={onViewChange} />
     <Skills />
     <Contact />
-  </>
+  </div>
 );
 
 function App() {
-  return (
-    <Router>
-      <ScrollToTop />
-      <div style={{ backgroundColor: 'var(--bg-color)', minHeight: '100vh', position: 'relative' }}>
-        <VibeBackground />
-        <CustomCursor />
-        <ThemeToggle />
-        <Navbar />
-        
-        <div style={{ width: '100%', position: 'relative', zIndex: 1 }}>
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/project/:id" element={<CaseStudy />} />
-            <Route path="*" element={<Home />} />
-          </Routes>
-        </div>
+  const [isLoading, setIsLoading] = useState(true);
+  const [currentView, setCurrentView] = useState('home');
+  const [activeProjectId, setActiveProjectId] = useState<string | null>(null);
+  const [theme, setTheme] = useState<'light' | 'dark'>(() => {
+    const savedTheme = localStorage.getItem('theme');
+    return (savedTheme as 'light' | 'dark') || 'dark';
+  });
 
-        <style>{`
-          html {
-            scroll-behavior: smooth;
-            background-color: var(--bg-color);
-          }
-          body {
-            margin: 0;
-            padding: 0;
-            overflow-x: hidden;
-            background-color: var(--bg-color);
-          }
-          #root { width: 100%; }
-          ::selection {
-            background-color: #fff;
-            color: #000;
-          }
-        `}</style>
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsLoading(false);
+    }, 2500);
+    return () => clearTimeout(timer);
+  }, []);
+
+  useEffect(() => {
+    document.documentElement.setAttribute('data-theme', theme);
+    localStorage.setItem('theme', theme);
+  }, [theme]);
+
+  const toggleTheme = () => {
+    setTheme(prev => (prev === 'dark' ? 'light' : 'dark'));
+  };
+
+  const handleViewChange = (view: string, id?: string) => {
+    setCurrentView(view);
+    if (id) setActiveProjectId(id);
+    window.scrollTo({ top: 0, behavior: 'instant' });
+  };
+
+  return (
+    <ReactLenis root options={{ lerp: 0.05, smoothWheel: true }}>
+      <div style={{ minHeight: '100vh', width: '100%', position: 'relative', backgroundColor: 'var(--bg-color)', transition: 'background-color 0.5s ease' }}>
+
+        <AnimatePresence mode="wait">
+          {isLoading && <Preloader key="preloader" />}
+        </AnimatePresence>
+
+        <Navbar theme={theme} toggleTheme={toggleTheme} onViewChange={handleViewChange} />
+
+        <main style={{ position: 'relative', zIndex: 10, width: '100%' }}>
+          {currentView === 'home' && <Home onViewChange={handleViewChange} />}
+          {currentView === 'explore' && <ExploreProjects onViewChange={handleViewChange} />}
+          {currentView === 'project' && activeProjectId && (
+            <CaseStudy id={activeProjectId} onViewChange={handleViewChange} />
+          )}
+        </main>
+
       </div>
-    </Router>
+    </ReactLenis>
   );
 }
 

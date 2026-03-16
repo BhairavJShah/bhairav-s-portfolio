@@ -1,52 +1,38 @@
-import { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
-import { Sun, Moon } from 'lucide-react';
+import { Moon, Sun } from 'lucide-react';
+import Magnetic from './Magnetic';
 
-const ThemeToggle = () => {
-  const [isDark, setIsDark] = useState(true);
+interface ThemeToggleProps {
+  theme: 'light' | 'dark';
+  toggleTheme: () => void;
+}
 
-  useEffect(() => {
-    if (isDark) {
-      document.body.classList.remove('light-mode');
-    } else {
-      document.body.classList.add('light-mode');
-    }
-  }, [isDark]);
-
+const ThemeToggle = ({ theme, toggleTheme }: ThemeToggleProps) => {
   return (
-    <motion.button
-      onClick={() => setIsDark(!isDark)}
-      initial={{ opacity: 0, x: -20 }}
-      animate={{ opacity: 1, x: 0 }}
-      transition={{ delay: 1, duration: 0.8 }}
-      style={{
-        position: 'fixed',
-        top: '32px',
-        left: '32px',
-        zIndex: 1001,
-        background: 'rgba(255, 255, 255, 0.05)',
-        backdropFilter: 'blur(10px)',
-        border: '1px solid var(--border)',
-        borderRadius: '100px',
-        padding: '0.75rem',
-        cursor: 'pointer',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        color: 'var(--text-primary)',
-        pointerEvents: 'auto',
-      }}
-      whileHover={{ scale: 1.1 }}
-      whileTap={{ scale: 0.9 }}
-    >
-      {isDark ? <Sun size={20} /> : <Moon size={20} />}
-      
-      <style>{`
-        @media (max-width: 768px) {
-          button { top: 20px !important; left: 20px !important; }
-        }
-      `}</style>
-    </motion.button>
+    <div style={{ position: 'fixed', bottom: '2.5rem', right: '2.5rem', zIndex: 1000 }}>
+      <Magnetic>
+        <button
+          onClick={toggleTheme}
+          style={{
+            width: '64px',
+            height: '64px',
+            borderRadius: '50%',
+            background: 'var(--card-bg)',
+            border: '1px solid var(--panel-border)',
+            backdropFilter: 'blur(20px)',
+            color: 'var(--text-main)',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            cursor: 'pointer',
+            boxShadow: '0 10px 30px var(--shadow)',
+            transition: 'all 0.3s ease'
+          }}
+          aria-label="Toggle Theme"
+        >
+          {theme === 'dark' ? <Sun size={24} /> : <Moon size={24} />}
+        </button>
+      </Magnetic>
+    </div>
   );
 };
 

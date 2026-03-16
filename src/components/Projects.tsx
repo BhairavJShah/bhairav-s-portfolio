@@ -1,147 +1,124 @@
 import { motion } from 'framer-motion';
-import { ExternalLink, Terminal, Cpu, Database } from 'lucide-react';
-import { Link } from 'react-router-dom';
-import '../styles/Global.css';
+import { ArrowUpRight } from 'lucide-react';
+import Magnetic from './Magnetic';
+import { projects } from '../data/projects';
 
-const Projects = () => {
-  const projects = [
-    { 
-      id: 'java-learning-platform',
-      title: 'Java Learning Platform', 
-      category: 'AI-Native / Mobile', 
-      tech: 'Flutter, Dart, AI Orchestration',
-      scalability: 'Handles 100+ Java modules with modular architecture.',
-      vibe: 'AI-generated 80% UI boilerplate via Vibe Coding.',
-      env: 'Manjaro XFCE / Neovim',
-      image: 'https://images.unsplash.com/photo-1587620962725-abab7fe55159?auto=format&fit=crop&q=80&w=1000'
-    },
-    { 
-      id: 'modern-bingo-mobile',
-      title: 'Modern Bingo Mobile', 
-      category: 'Cross-Platform / Game', 
-      tech: 'React Native, JS, Prompt Engineering',
-      scalability: 'Optimized for high-fidelity real-time game state updates.',
-      vibe: 'Iterative Prompt Engineering for UI/UX components.',
-      env: 'Manjaro XFCE / Neovim',
-      image: 'https://images.unsplash.com/photo-1614680376593-902f74cf0d41?auto=format&fit=crop&q=80&w=1000'
-    },
-    { 
-      id: 'e-healthcare-system',
-      title: 'E-HealthCare System', 
-      category: 'Enterprise / Web', 
-      tech: 'Java, MySQL, JSP, Servlets',
-      scalability: 'Manages 10,000+ patient records and automated billing.',
-      vibe: 'Robust J2EE foundation with 50% admin load reduction.',
-      env: 'Linux / IntelliJ',
-      image: 'https://images.unsplash.com/photo-1530497610245-94d3c16cda28?auto=format&fit=crop&q=80&w=1000'
-    },
-    { 
-      id: 'decentralized-money',
-      title: 'Decentralized Money', 
-      category: 'Blockchain / DeFi', 
-      tech: 'Solidity, Ethereum, Blockchain',
-      scalability: '99.9% fault tolerance with 40% efficiency gains.',
-      vibe: '100% transaction transparency for decentralized trust.',
-      env: 'Hardhat / Manjaro',
-      image: 'https://images.unsplash.com/photo-1621761191319-c6fb62004040?auto=format&fit=crop&q=80&w=1000'
-    },
-  ];
+interface ProjectsProps {
+  onViewChange: (view: string, id?: string) => void;
+}
+
+const Projects = ({ onViewChange }: ProjectsProps) => {
+  const recentProjects = projects.slice(0, 3);
 
   return (
-    <section id="projects" style={{ padding: 'var(--section-padding)', maxWidth: '100%', overflow: 'hidden' }}>
-      <div className="container" style={{ maxWidth: 'var(--container-width)', margin: '0 auto', marginBottom: '3rem' }}>
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-        >
-          <h2 className="section-title" style={{ textAlign: 'left', marginBottom: '1rem' }}>Selected Projects</h2>
-          <p style={{ color: 'var(--text-secondary)', fontSize: '1.2rem', maxWidth: '700px' }}>
-            A mix of high-velocity <span style={{ color: 'var(--accent-emerald)' }}>Vibe Coding</span> apps and robust enterprise engineering foundations.
-          </p>
-        </motion.div>
-      </div>
+    <section id="projects">
+      <div className="content-block">
+        <div className="container">
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(12, 1fr)', gap: '4rem', alignItems: 'flex-start' }}>
 
-      <div className="projects-queue" style={{ 
-        display: 'flex', 
-        gap: '2rem', 
-        overflowX: 'auto', 
-        padding: '0 4vw 4rem', 
-        scrollSnapType: 'x mandatory',
-        scrollbarWidth: 'none',
-        msOverflowStyle: 'none'
-      }}>
-        {projects.map((project, idx) => (
-          <motion.div 
-            key={idx}
-            initial={{ opacity: 0, x: 50 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8, delay: idx * 0.1 }}
-            style={{
-              flex: '0 0 clamp(300px, 80vw, 450px)',
-              scrollSnapAlign: 'start',
-              backgroundColor: 'var(--bg-card)',
-              borderRadius: '24px',
-              border: '1px solid var(--border)',
-              overflow: 'hidden',
+            {/* Left Side: Projects List */}
+            <div 
+              style={{ 
+                gridColumn: 'span 8', 
+                display: 'flex',
+                flexDirection: 'column',
+                gap: '2rem'
+              }}
+            >
+              {recentProjects.map((project, i) => (
+                <motion.div
+                  key={i}
+                  initial={{ opacity: 0, x: -20 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.6, delay: i * 0.1 }}
+                >
+                  <div 
+                    onClick={() => onViewChange('project', project.id)}
+                    className="glass-card" 
+                    style={{
+                      padding: '1.5rem',
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: '2rem',
+                      transition: 'all 0.4s var(--transition-ease)',
+                      cursor: 'pointer',
+                      border: '1px solid var(--panel-border)'
+                    }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.background = 'var(--accent-soft)';
+                      e.currentTarget.style.borderColor = 'var(--accent)';
+                      e.currentTarget.style.transform = 'translateX(10px)';
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.background = 'var(--card-bg)';
+                      e.currentTarget.style.borderColor = 'var(--panel-border)';
+                      e.currentTarget.style.transform = 'translateX(0)';
+                    }}
+                  >
+                    <div style={{ width: '160px', height: '110px', borderRadius: '12px', overflow: 'hidden', flexShrink: 0 }}>
+                      <img src={project.image} alt={project.title} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />     
+                    </div>
+
+                    <div style={{ flex: 1 }}>
+                      <div style={{ display: 'flex', gap: '1rem', marginBottom: '0.5rem', alignItems: 'center' }}>
+                        <span style={{ color: 'var(--accent)', fontSize: '0.7rem', fontWeight: 800, letterSpacing: '0.1em', textTransform: 'uppercase' }}>{project.category}</span>
+                        <span style={{ color: 'var(--text-sub)', fontSize: '0.7rem', fontWeight: 800 }}>{project.year}</span>
+                      </div>
+                      <h3 style={{ fontSize: '1.6rem', color: 'var(--text-main)', fontWeight: 800, marginBottom: '0.3rem' }}>{project.title}</h3>
+                      <p style={{ color: 'var(--text-sub)', fontSize: '0.9rem', lineHeight: 1.4, display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}>{project.desc}</p>
+                    </div>
+
+                    <div style={{
+                      width: '44px', height: '44px', borderRadius: '50%',
+                      border: '1px solid var(--panel-border)',
+                      display: 'flex', alignItems: 'center', justifyContent: 'center',
+                      color: 'var(--text-main)',
+                      flexShrink: 0
+                    }}>
+                      <ArrowUpRight size={20} />
+                    </div>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+
+            {/* Right Side: Sticky Information */}
+            <div style={{
+              gridColumn: 'span 4',
               display: 'flex',
               flexDirection: 'column',
-              transition: 'transform 0.3s ease'
-            }}
-            whileHover={{ y: -10 }}
-          >
-            <div style={{ position: 'relative', height: '250px', overflow: 'hidden', backgroundColor: 'var(--bg-card)' }}>
-              <motion.img 
-                src={project.image} 
-                alt={project.title} 
-                style={{ width: '100%', height: '100%', objectFit: 'cover' }}
-                whileHover={{ scale: 1.1 }}
-                transition={{ duration: 0.6 }}
-              />
-              <div style={{ position: 'absolute', bottom: '15px', left: '15px' }}>
-                <span style={{ backgroundColor: 'rgba(0,0,0,0.6)', backdropFilter: 'blur(8px)', padding: '0.4rem 0.8rem', borderRadius: '8px', fontSize: '0.7rem', fontWeight: 600, color: '#fff', border: '1px solid rgba(255,255,255,0.1)' }}>
-                  {project.env}
-                </span>
-              </div>
-            </div>
-
-            <div style={{ padding: '2rem', display: 'flex', flexDirection: 'column', gap: '1.5rem', flex: 1 }}>
-              <div>
-                <span style={{ fontSize: '0.75rem', fontWeight: 600, color: 'var(--accent-emerald)', textTransform: 'uppercase', letterSpacing: '0.1em' }}>
-                  {project.category}
-                </span>
-                <h3 style={{ fontSize: '1.75rem', fontWeight: 700, margin: '0.5rem 0' }}>{project.title}</h3>
-              </div>
-
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-                <div style={{ display: 'flex', gap: '0.75rem' }}>
-                  <Cpu size={18} color="var(--accent-blue)" style={{ flexShrink: 0, marginTop: '2px' }} />
-                  <p style={{ color: 'var(--text-secondary)', fontSize: '0.85rem' }}>{project.tech}</p>
-                </div>
-                <div style={{ display: 'flex', gap: '0.75rem' }}>
-                  <Database size={18} color="var(--accent-emerald)" style={{ flexShrink: 0, marginTop: '2px' }} />
-                  <p style={{ color: 'var(--text-secondary)', fontSize: '0.85rem' }}>{project.scalability}</p>
-                </div>
-              </div>
-
-              <div style={{ marginTop: 'auto' }}>
-                <Link 
-                  to={`/project/${project.id}`} 
-                  className="btn-primary" 
-                  style={{ width: '100%', justifyContent: 'center', padding: '0.8rem', borderRadius: '12px', fontSize: '0.85rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}
+              gap: '2.5rem',
+              position: 'sticky',
+              top: '120px'
+            }}>
+              <span style={{ color: 'var(--accent)', fontSize: '1rem', fontWeight: 800, letterSpacing: '0.4em' }}>[ RECENT PROJECTS ]</span>
+              <h2 style={{ fontSize: 'clamp(2.5rem, 4vw, 4.5rem)', lineHeight: 1, color: 'var(--text-main)', fontWeight: 900 }}>
+                CASE <br/> STUDIES.
+              </h2>
+              <p style={{ color: 'var(--text-sub)', fontSize: '1.1rem', lineHeight: 1.6 }}>
+                A curated selection of high-power applications engineered for global scale and aesthetic superiority.
+              </p>
+              <Magnetic>
+                <button 
+                  onClick={() => onViewChange('explore')}
+                  className="btn-cyber" 
+                  style={{ width: 'fit-content', marginTop: '1rem', background: 'var(--accent)', color: '#000', border: 'none', cursor: 'pointer' }}
                 >
-                  <ExternalLink size={16} /> View Case Study
-                </Link>
-              </div>
+                  EXPLORE_ALL
+                </button>
+              </Magnetic>
             </div>
-          </motion.div>
-        ))}
+
+          </div>
+        </div>
       </div>
 
       <style>{`
-        .projects-queue::-webkit-scrollbar {
-          display: none;
+        @media (max-width: 1024px) {
+          #projects div[style*="gridTemplateColumns"] { grid-template-columns: 1fr !important; }
+          #projects div[style*="span 8"], #projects div[style*="span 4"] { grid-column: span 12 !important; }
+          #projects div[style*="sticky"] { position: relative !important; top: 0 !important; order: -1; margin-bottom: 3rem; }
         }
       `}</style>
     </section>

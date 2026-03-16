@@ -95,19 +95,18 @@ const Skills = () => {
             </div>
           </div>
 
-          <div 
+          <div
             className="skills-horizontal-scroll"
-            data-lenis-prevent
-            style={{ 
-              display: 'flex', 
-              gap: '2.5rem', 
-              overflowX: 'auto', 
+            style={{
+              display: 'flex',
+              gap: '2.5rem',
+              overflowX: 'auto',
               paddingBottom: '3rem',
               paddingRight: '5vw',
-              cursor: 'grab'
+              cursor: 'grab',
+              scrollSnapType: 'x proximity'
             }}
-          >
-            {skillCategories.map((category, idx) => (
+          >            {skillCategories.map((category, idx) => (
               <motion.div 
                 key={idx}
                 initial={{ opacity: 0, x: 50 }}

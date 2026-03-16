@@ -1,8 +1,25 @@
-import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react'
+import { defineConfig } from 'vite';
+import react from '@vitejs/plugin-react';
 
-// Corrected plugin for Vercel Deployment
+// https://vite.dev/config/
 export default defineConfig({
   plugins: [react()],
-  base: '/', 
-})
+  build: {
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          vendor: ['react', 'react-dom', 'framer-motion', 'gsap'],
+          three: ['three', '@react-three/fiber', '@react-three/drei'],
+        },
+      },
+    },
+    chunkSizeWarningLimit: 1000,
+    minify: 'terser',
+    terserOptions: {
+      compress: {
+        drop_console: true,
+        drop_debugger: true,
+      },
+    },
+  },
+});

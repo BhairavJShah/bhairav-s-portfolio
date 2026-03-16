@@ -96,7 +96,7 @@ const Hero = () => {
                   </Magnetic>
                   
                   <Magnetic>
-                    <a href="/bhairav_j_shah_resume.pdf" download="Bhairav_Shah_Resume.pdf" className="btn-cyber" style={{ background: 'transparent', borderColor: 'var(--panel-border)' }}>
+                    <a href="/bhairav_j_shah_resume.pdf?v=20260316" download="Bhairav_Shah_Resume.pdf" className="btn-cyber" style={{ background: 'transparent', borderColor: 'var(--panel-border)' }}>
                       DOWNLOAD RESUME <Download size={20} />
                     </a>
                   </Magnetic>

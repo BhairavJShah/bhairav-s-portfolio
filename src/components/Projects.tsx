@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { ArrowUpRight } from 'lucide-react';
+import { ArrowUpRight, BookOpen, Globe } from 'lucide-react';
 import Magnetic from './Magnetic';
 import { projects } from '../data/projects';
 
@@ -22,7 +22,7 @@ const Projects = ({ onViewChange }: ProjectsProps) => {
                 gridColumn: 'span 8', 
                 display: 'flex',
                 flexDirection: 'column',
-                gap: '2rem'
+                gap: '2.5rem'
               }}
             >
               {recentProjects.map((project, i) => (
@@ -33,50 +33,92 @@ const Projects = ({ onViewChange }: ProjectsProps) => {
                   viewport={{ once: true }}
                   transition={{ duration: 0.6, delay: i * 0.1 }}
                 >
-                  <div 
-                    onClick={() => onViewChange('project', project.id)}
-                    className="glass-card" 
-                    style={{
-                      padding: '1.5rem',
-                      display: 'flex',
-                      alignItems: 'center',
-                      gap: '2rem',
-                      transition: 'all 0.4s var(--transition-ease)',
-                      cursor: 'pointer',
-                      border: '1px solid var(--panel-border)'
-                    }}
-                    onMouseEnter={(e) => {
-                      e.currentTarget.style.background = 'var(--accent-soft)';
-                      e.currentTarget.style.borderColor = 'var(--accent)';
-                      e.currentTarget.style.transform = 'translateX(10px)';
-                    }}
-                    onMouseLeave={(e) => {
-                      e.currentTarget.style.background = 'var(--card-bg)';
-                      e.currentTarget.style.borderColor = 'var(--panel-border)';
-                      e.currentTarget.style.transform = 'translateX(0)';
-                    }}
+                  <div className="glass-card" style={{
+                    padding: '2rem',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    gap: '2rem',
+                    transition: 'all 0.4s var(--transition-ease)',
+                    border: '1px solid var(--panel-border)',
+                    borderRadius: '24px'
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.borderColor = 'var(--accent)';
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.borderColor = 'var(--panel-border)';
+                  }}
                   >
-                    <div style={{ width: '160px', height: '110px', borderRadius: '12px', overflow: 'hidden', flexShrink: 0 }}>
-                      <img src={project.image} alt={project.title} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />     
-                    </div>
-
-                    <div style={{ flex: 1 }}>
-                      <div style={{ display: 'flex', gap: '1rem', marginBottom: '0.5rem', alignItems: 'center' }}>
-                        <span style={{ color: 'var(--accent)', fontSize: '0.7rem', fontWeight: 800, letterSpacing: '0.1em', textTransform: 'uppercase' }}>{project.category}</span>
-                        <span style={{ color: 'var(--text-sub)', fontSize: '0.7rem', fontWeight: 800 }}>{project.year}</span>
+                    <div style={{ display: 'flex', gap: '2rem', alignItems: 'center' }}>
+                      <div style={{ width: '180px', height: '120px', borderRadius: '16px', overflow: 'hidden', flexShrink: 0 }}>
+                        <img src={project.image} alt={project.title} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />     
                       </div>
-                      <h3 style={{ fontSize: '1.6rem', color: 'var(--text-main)', fontWeight: 800, marginBottom: '0.3rem' }}>{project.title}</h3>
-                      <p style={{ color: 'var(--text-sub)', fontSize: '0.9rem', lineHeight: 1.4, display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}>{project.desc}</p>
+
+                      <div style={{ flex: 1 }}>
+                        <div style={{ display: 'flex', gap: '1rem', marginBottom: '0.5rem', alignItems: 'center' }}>
+                          <span style={{ color: 'var(--accent)', fontSize: '0.7rem', fontWeight: 800, letterSpacing: '0.1em', textTransform: 'uppercase' }}>{project.category}</span>
+                          <span style={{ color: 'var(--text-sub)', fontSize: '0.7rem', fontWeight: 800 }}>{project.year}</span>
+                        </div>
+                        <h3 style={{ fontSize: '1.8rem', color: 'var(--text-main)', fontWeight: 800, marginBottom: '0.3rem' }}>{project.title}</h3>
+                        <p style={{ color: 'var(--text-sub)', fontSize: '0.9rem', lineHeight: 1.4, display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}>{project.desc}</p>
+                      </div>
                     </div>
 
-                    <div style={{
-                      width: '44px', height: '44px', borderRadius: '50%',
-                      border: '1px solid var(--panel-border)',
-                      display: 'flex', alignItems: 'center', justifyContent: 'center',
-                      color: 'var(--text-main)',
-                      flexShrink: 0
-                    }}>
-                      <ArrowUpRight size={20} />
+                    {/* ACTION BUTTONS */}
+                    <div style={{ display: 'flex', gap: '1rem', width: '100%' }}>
+                      <Magnetic>
+                        <button 
+                          onClick={() => onViewChange('project', project.id)}
+                          style={{
+                            flex: 1,
+                            padding: '1rem',
+                            background: 'var(--text-main)',
+                            color: 'var(--bg-color)',
+                            borderRadius: '12px',
+                            fontWeight: 900,
+                            border: 'none',
+                            cursor: 'pointer',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            gap: '0.6rem',
+                            fontSize: '0.8rem',
+                            letterSpacing: '0.05em'
+                          }}
+                        >
+                          <BookOpen size={16} /> CASE STUDY
+                        </button>
+                      </Magnetic>
+                      
+                      <Magnetic>
+                        <a 
+                          href={project.link} 
+                          target="_blank" 
+                          rel="noreferrer" 
+                          style={{ flex: 1, textDecoration: 'none' }}
+                        >
+                          <button 
+                            style={{
+                              width: '100%',
+                              padding: '1rem',
+                              background: 'transparent',
+                              color: 'var(--text-main)',
+                              borderRadius: '12px',
+                              fontWeight: 900,
+                              border: '1px solid var(--panel-border)',
+                              cursor: 'pointer',
+                              display: 'flex',
+                              alignItems: 'center',
+                              justifyContent: 'center',
+                              gap: '0.6rem',
+                              fontSize: '0.8rem',
+                              letterSpacing: '0.05em'
+                            }}
+                          >
+                            <Globe size={16} /> TRY LIVE <ArrowUpRight size={14} />
+                          </button>
+                        </a>
+                      </Magnetic>
                     </div>
                   </div>
                 </motion.div>

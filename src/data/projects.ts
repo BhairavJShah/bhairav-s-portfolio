@@ -5,7 +5,7 @@ export const projects = [
     category: 'AI & DATA', 
     image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&q=80&w=1200', 
     year: '2024', 
-    link: 'https://github.com/BhairavJShah',
+    link: 'https://data-analysis-tool-bot.vercel.app/',
     desc: 'Comprehensive tool integrating Llama-3 and Gemini to generate code snippets and insights for data tasks.'
   },
   { 
@@ -32,7 +32,7 @@ export const projects = [
     category: 'ENTERPRISE', 
     image: 'https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&q=80&w=1200', 
     year: '2022', 
-    link: 'e-healthcare-system.vercel.app',
+    link: 'https://e-healthcare-system.vercel.app',
     desc: 'Engineered a comprehensive healthcare portal managing 10,000+ patient records with automated medical billing.'
   },
   { 

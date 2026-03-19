@@ -50,7 +50,7 @@ export const projects = [
     category: 'UTILITY', 
     image: 'https://images.unsplash.com/photo-1595079676339-1534801ad6cf?auto=format&fit=crop&q=80&w=1200', 
     year: '2023', 
-    link: 'https://github.com/BhairavJShah',
+    link: 'https://qr-everything.vercel.app/',
     desc: 'Fast, lightweight QR code generator built with JavaScript and Tailwind CSS for instant URL sharing.'
   },
   { 

@@ -5,7 +5,7 @@ export const projects = [
     category: 'AI & DATA', 
     image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&q=80&w=1200', 
     year: '2024', 
-    link: 'https://data-analysis-tool-bot.vercel.app/',
+    link: 'https://data-analysis-toolbot-app-01ap.streamlit.app/',
     desc: 'Comprehensive tool integrating Llama-3 and Gemini to generate code snippets and insights for data tasks.'
   },
   { 

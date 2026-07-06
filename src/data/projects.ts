@@ -18,13 +18,13 @@ export const projects = [
     desc: 'Comprehensive mobile learning app utilizing AI agents to generate 80% of boilerplate and UI components.'
   },
   { 
-    id: 'modern-bingo-mobile', 
-    title: 'Modern Bingo Mobile', 
+    id: 'classic-bingo-game', 
+    title: 'Classic Bingo Game', 
     category: 'PROMPT ENGINEERING', 
-    image: 'https://images.unsplash.com/photo-1614680376593-902f74cf0d41?auto=format&fit=crop&q=80&w=1200', 
+    image: '/bingo-logo.png', 
     year: '2026', 
     link: 'https://classic-bingo.vercel.app/',
-    desc: 'Multi-platform Bingo game employing Prompt Engineering to optimize logic and high-fidelity UI component structures.'
+    desc: 'Multi-platform Classic Bingo game employing Prompt Engineering to optimize logic and high-fidelity UI component structures.'
   },
   { 
     id: 'e-healthcare-system', 

@@ -139,14 +139,15 @@ const ArchitecturalGrid = () => {
 
   return (
     <div style={{ 
-      position: 'absolute', 
+      position: 'fixed', 
       top: 0, 
       left: 0, 
-      width: '100%', 
-      height: '100%', 
+      width: '100vw', 
+      height: '100vh', 
       zIndex: 0,
       background: bgColor,
-      transition: 'background-color 0.5s ease'
+      transition: 'background-color 0.5s ease',
+      pointerEvents: 'none'
     }}>
       <Canvas gl={{ antialias: true, alpha: true }}>
         <PerspectiveCamera makeDefault position={[0, 0, 12]} fov={50} />

@@ -2,92 +2,93 @@ import { motion } from 'framer-motion';
 import { useState, useEffect } from 'react';
 
 export default function Preloader() {
-  const [index, setIndex] = useState(0);
-  const words = ["Hello", "Bonjour", "Ciao", "Olà", "Namaste", "Hallå", "Guten tag", "Hello"];
+  const [count, setCount] = useState(0);
 
   useEffect(() => {
-    if (index === words.length - 1) return;
-    const timer = setTimeout(() => {
-      setIndex(index + 1);
-    }, index === 0 ? 1000 : 150);
-    return () => clearTimeout(timer);
-  }, [index, words.length]);
+    if (count >= 100) return;
+    const timer = setInterval(() => {
+      setCount(prev => {
+        // Accelerate: slow at start, fast in middle, slow at end
+        const remaining = 100 - prev;
+        const step = Math.max(1, Math.floor(remaining / 10));
+        return Math.min(100, prev + step);
+      });
+    }, 30);
+    return () => clearInterval(timer);
+  }, [count]);
 
   return (
     <motion.div
-      variants={curve}
+      variants={slideUp}
       initial="initial"
       exit="exit"
       style={{
         height: '100vh',
         width: '100vw',
         display: 'flex',
+        flexDirection: 'column',
         alignItems: 'center',
         justifyContent: 'center',
         position: 'fixed',
         zIndex: 9999,
-        backgroundColor: '#000',
-        overflow: 'hidden'
+        backgroundColor: '#0a0a0a',
+        overflow: 'hidden',
+        gap: '2rem'
       }}
     >
+      {/* Percentage Counter */}
       <motion.p
-        variants={opacity}
+        variants={fadeIn}
         initial="initial"
         animate="enter"
         style={{
-          display: 'flex',
-          color: 'white',
-          fontSize: '4rem',
-          alignItems: 'center',
-          zIndex: 1,
-          fontWeight: 700,
-          fontFamily: 'monospace'
+          fontSize: 'clamp(4rem, 15vw, 12rem)',
+          fontWeight: 900,
+          lineHeight: 1,
+          background: 'linear-gradient(135deg, #00f5d4 0%, #00bbf9 50%, #9b5de5 100%)',
+          WebkitBackgroundClip: 'text',
+          backgroundClip: 'text',
+          WebkitTextFillColor: 'transparent',
+          fontFamily: "'Inter', -apple-system, BlinkMacSystemFont, sans-serif",
+          letterSpacing: '-0.04em',
+          userSelect: 'none'
         }}
       >
-        <span style={{ 
-          display: 'block', 
-          width: '10px', 
-          height: '10px', 
-          backgroundColor: '#00ffcc', 
-          borderRadius: '50%', 
-          marginRight: '1rem',
-          boxShadow: '0 0 20px #00ffcc'
-        }} />
-        {words[index]}
+        {count}
       </motion.p>
-      
-      {/* Dynamic Slide-up Curve SVG */}
-      <svg style={{
-        position: 'absolute',
-        top: 0,
-        width: '100%',
-        height: 'calc(100% + 300px)',
-        zIndex: 0
-      }}>
-        <motion.path 
-          variants={curve} 
-          initial="initial" 
-          exit="exit"
-          fill="#000"
-          stroke="none"
-        />
-      </svg>
+
+      {/* Name Label */}
+      <motion.span
+        variants={fadeIn}
+        initial="initial"
+        animate="enter"
+        style={{
+          fontFamily: "'JetBrains Mono', 'SF Mono', monospace",
+          fontSize: 'clamp(0.65rem, 1.2vw, 0.85rem)',
+          color: '#8e8e93',
+          letterSpacing: '0.5em',
+          textTransform: 'uppercase',
+          userSelect: 'none'
+        }}
+      >
+        BHAIRAV J. SHAH
+      </motion.span>
     </motion.div>
   );
 }
 
-const opacity = {
+const fadeIn = {
   initial: { opacity: 0 },
-  enter: { opacity: 0.75, transition: { duration: 1, delay: 0.2 } },
+  enter: { opacity: 1, transition: { duration: 0.8, delay: 0.1 } },
 };
 
-const curve = {
+const slideUp = {
   initial: {
     top: 0,
     transition: { duration: 0.7, ease: [0.76, 0, 0.24, 1] as const }
   },
   exit: {
-    top: "-100vh",
+    top: '-100vh',
     transition: { duration: 0.8, delay: 0.2, ease: [0.76, 0, 0.24, 1] as const }
   }
 };

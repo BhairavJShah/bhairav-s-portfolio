@@ -1,27 +1,42 @@
+import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
-import { 
-  ArrowRightLeft, 
-  BrainCircuit, 
-  Terminal, 
-  Cpu, 
-  Sparkles, 
-  MousePointer2, 
-  Coffee, 
-  Code2, 
-  Database, 
-  ShieldCheck, 
-  Smartphone, 
-  Server, 
-  Layout, 
-  GitBranch, 
-  Box, 
-  Cloud, 
+import {
+  BrainCircuit,
+  Terminal,
+  Cpu,
+  Sparkles,
+  MousePointer2,
+  Coffee,
+  Code2,
+  Database,
+  ShieldCheck,
+  Smartphone,
+  Server,
+  Layout,
+  GitBranch,
+  Box,
+  Cloud,
   Laptop,
   MessageSquareCode,
   Globe
 } from 'lucide-react';
 
 const Skills = () => {
+  const [isFrozen, setIsFrozen] = useState(false);
+
+  useEffect(() => {
+    const handleFreeze = (e: Event) => {
+      const duration = (e as CustomEvent).detail?.duration || 5000;
+      setIsFrozen(true);
+      setTimeout(() => {
+        setIsFrozen(false);
+      }, duration);
+    };
+
+    window.addEventListener('freeze-skills', handleFreeze);
+    return () => window.removeEventListener('freeze-skills', handleFreeze);
+  }, []);
+
   const skillCategories = [
     {
       title: 'AI & Orchestration',
@@ -66,137 +81,115 @@ const Skills = () => {
     }
   ];
 
+  const row1Skills = [...skillCategories[0].skills, ...skillCategories[1].skills];
+  const row2Skills = [...skillCategories[2].skills, ...skillCategories[3].skills];
+
+  const MarqueeRow = ({ skills, direction, speed }: { skills: any[]; direction: 'left' | 'right'; speed: number }) => (
+    <div className="marquee-container" style={{ overflow: 'hidden', width: '100%', padding: '0.5rem 0' }}>
+      <div
+        className={`marquee-track marquee-${direction} ${isFrozen ? 'frozen' : ''}`}
+        style={{
+          display: 'flex',
+          gap: '1rem',
+          width: 'max-content',
+          animation: `marquee-${direction} ${speed}s linear infinite`
+        }}
+      >
+        {/* Render skills TWICE for seamless loop */}
+        {[...skills, ...skills].map((skill, i) => (
+          <div
+            key={i}
+            className="skill-pill"
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: '0.8rem',
+              padding: '0.8rem 1.5rem',
+              background: 'var(--card-bg)',
+              border: '1px solid var(--panel-border)',
+              borderRadius: '100px',
+              whiteSpace: 'nowrap',
+              transition: 'all 0.3s ease',
+              cursor: 'default',
+              flexShrink: 0
+            }}
+          >
+            <span style={{ color: 'var(--accent)', display: 'flex', alignItems: 'center' }}>{skill.icon}</span>
+            <span style={{ color: 'var(--text-main)', fontSize: '0.95rem', fontWeight: 600 }}>{skill.name}</span>
+            <span style={{ color: 'var(--text-sub)', fontSize: '0.75rem', fontWeight: 500, opacity: 0.7 }}>{skill.level}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+
   return (
     <section id="skills">
       <div className="content-block">
         <div className="container">
-          
-          <div style={{ marginBottom: '6rem', display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', flexWrap: 'wrap', gap: '2rem' }}>
-            <div>
-              <motion.span 
-                initial={{ opacity: 0 }}
-                whileInView={{ opacity: 1 }}
-                style={{ color: 'var(--accent)', fontSize: '0.9rem', fontWeight: 800, letterSpacing: '0.4em' }}
-              >
-                [ TECHNICAL_STACK ]
-              </motion.span>
-              <motion.h2 
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                style={{ fontSize: 'clamp(2.5rem, 5vw, 4.5rem)', color: 'var(--text-main)', marginTop: '1rem', fontWeight: 900 }}
-              >
+
+          {/* Header */}
+          <div style={{ marginBottom: '4rem' }}>
+            <motion.span
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              viewport={{ once: true }}
+              style={{ color: 'var(--accent)', fontSize: '0.85rem', fontWeight: 800, letterSpacing: '0.4em', display: 'block', marginBottom: '1rem' }}
+            >
+              [ TECHNICAL_STACK ]
+            </motion.span>
+            <motion.h2
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              style={{ fontSize: 'clamp(2.5rem, 5vw, 4.5rem)', color: 'var(--text-main)', fontWeight: 900 }}
+            >
+              <span className="gradient-text" style={{
+                background: 'linear-gradient(135deg, var(--accent), var(--text-main))',
+                WebkitBackgroundClip: 'text',
+                WebkitTextFillColor: 'transparent',
+                backgroundClip: 'text'
+              }}>
                 SKILLS.
-              </motion.h2>
-            </div>
-            
-            <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', color: 'var(--text-sub)', opacity: 0.6 }}>
-              <span style={{ fontSize: '0.8rem', fontWeight: 700, letterSpacing: '0.1em' }}>SCROLL_HORIZONTAL</span>
-              <ArrowRightLeft size={18} />
-            </div>
+              </span>
+            </motion.h2>
           </div>
 
-          <div
-            className="skills-horizontal-scroll"
-            style={{
-              display: 'flex',
-              gap: '2.5rem',
-              overflowX: 'auto',
-              paddingBottom: '3rem',
-              paddingRight: '5vw',
-              cursor: 'grab',
-              scrollSnapType: 'x proximity'
-            }}
-          >            {skillCategories.map((category, idx) => (
-              <motion.div 
-                key={idx}
-                initial={{ opacity: 0, x: 50 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.8, delay: idx * 0.1 }}
-                style={{
-                  minWidth: 'clamp(320px, 35vw, 550px)',
-                  height: '550px',
-                  display: 'flex',
-                  flexDirection: 'column',
-                  background: 'var(--card-bg)',
-                  border: '1px solid var(--panel-border)',
-                  borderRadius: '40px',
-                  padding: '3.5rem',
-                  transition: 'all 0.4s var(--transition-ease)',
-                  position: 'relative',
-                  overflow: 'hidden'
-                }}
-                className="skill-rect-block"
-              >
-                <div style={{ position: 'absolute', top: '-20px', right: '-20px', width: '150px', height: '150px', background: 'var(--accent)', filter: 'blur(100px)', opacity: 0.05 }} />
-                
-                <h3 style={{ 
-                  fontSize: '1.8rem', 
-                  fontWeight: 800, 
-                  color: 'var(--text-main)', 
-                  marginBottom: '3rem',
-                  borderBottom: '1px solid var(--panel-border)',
-                  paddingBottom: '1.5rem'
-                }}>
-                  {category.title}
-                </h3>
-
-                <div style={{ display: 'grid', gridTemplateColumns: '1fr', gap: '1.5rem' }}>
-                  {category.skills.map((skill, sIdx) => (
-                    <div key={sIdx} style={{ display: 'flex', alignItems: 'center', gap: '1.2rem' }}>
-                      <div style={{ 
-                        width: '44px', 
-                        height: '44px', 
-                        borderRadius: '12px', 
-                        background: 'rgba(255,255,255,0.03)', 
-                        border: '1px solid var(--panel-border)', 
-                        display: 'flex', 
-                        alignItems: 'center', 
-                        justifyContent: 'center',
-                        color: 'var(--accent)',
-                        transition: 'all 0.3s ease'
-                      }} className="skill-icon-box">
-                        {skill.icon}
-                      </div>
-                      <div style={{ display: 'flex', flexDirection: 'column' }}>
-                        <span style={{ fontSize: '1.1rem', fontWeight: 700, color: 'var(--text-main)' }}>{skill.name}</span>
-                        <span style={{ fontSize: '0.8rem', color: 'var(--text-sub)', fontWeight: 600 }}>{skill.level}</span>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </motion.div>
-            ))}
-          </div>
+          {/* Marquee Rows */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8 }}
+            style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}
+          >
+            <MarqueeRow skills={row1Skills} direction="left" speed={35} />
+            <MarqueeRow skills={row2Skills} direction="right" speed={40} />
+          </motion.div>
 
         </div>
       </div>
 
       <style>{`
-        .skills-horizontal-scroll::-webkit-scrollbar {
-          height: 6px;
+        @keyframes marquee-left {
+          0% { transform: translateX(0); }
+          100% { transform: translateX(-50%); }
         }
-        .skills-horizontal-scroll::-webkit-scrollbar-track {
-          background: rgba(255, 255, 255, 0.02);
-          border-radius: 10px;
-          margin: 0 5vw;
+        @keyframes marquee-right {
+          0% { transform: translateX(-50%); }
+          100% { transform: translateX(0); }
         }
-        .skills-horizontal-scroll::-webkit-scrollbar-thumb {
-          background: var(--accent);
-          border-radius: 10px;
+        .marquee-container:hover .marquee-track {
+          animation-play-state: paused;
         }
-        .skill-rect-block:hover {
-          border-color: var(--accent);
-          transform: translateY(-10px);
-          box-shadow: 0 30px 60px rgba(0, 0, 0, 0.3);
+        .marquee-track.frozen {
+          animation-play-state: paused !important;
         }
-        .skill-rect-block:hover .skill-icon-box {
-          background: var(--accent-soft);
-          border-color: var(--accent);
-          transform: scale(1.1);
-        }
-        .skills-horizontal-scroll:active {
-          cursor: grabbing;
+        .skill-pill:hover {
+          border-color: var(--accent) !important;
+          background: var(--accent-soft) !important;
+          box-shadow: 0 0 20px var(--accent-soft);
+          transform: scale(1.05);
         }
       `}</style>
     </section>

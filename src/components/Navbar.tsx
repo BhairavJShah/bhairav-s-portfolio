@@ -102,13 +102,13 @@ const Navbar = ({ theme, toggleTheme, onViewChange }: NavbarProps) => {
           display: 'flex',
           alignItems: 'center',
           gap: isMobile ? '2px' : '1rem',
-          background: 'var(--card-bg)',
+          background: 'var(--bg-card)',
           backdropFilter: 'blur(30px)',
           WebkitBackdropFilter: 'blur(30px)',
           padding: isMobile ? '4px' : '0.8rem 1rem',
-          borderRadius: '100px',
-          border: '1px solid var(--panel-border)',
-          boxShadow: scrolled ? '0 20px 50px var(--shadow)' : 'none',
+          borderRadius: 'var(--radius-full, 100px)',
+          border: '1px solid var(--border-subtle)',
+          boxShadow: scrolled ? 'var(--shadow-elevated, 0 20px 50px var(--shadow))' : 'none',
           transition: 'all 0.5s cubic-bezier(0.16, 1, 0.3, 1)',
           pointerEvents: 'auto',
           maxWidth: isMobile ? '95vw' : 'auto',
@@ -127,28 +127,29 @@ const Navbar = ({ theme, toggleTheme, onViewChange }: NavbarProps) => {
                 padding: isMobile ? '0.6rem 0.8rem' : '0.8rem 2rem',
                 fontSize: isMobile ? '0.75rem' : '1rem',
                 fontWeight: activeSection === link.id ? 800 : 600,
-                color: activeSection === link.id ? 'var(--bg-color)' : 'var(--text-main)',
-                background: activeSection === link.id ? 'var(--text-main)' : 'transparent',
-                borderRadius: '100px',
+                color: activeSection === link.id ? 'var(--bg-color)' : 'var(--text-primary, var(--text-main))',
+                background: activeSection === link.id ? 'var(--text-primary, var(--text-main))' : 'transparent',
+                borderRadius: 'var(--radius-full, 100px)',
                 border: 'none',
                 cursor: 'pointer',
                 transition: 'all 0.4s var(--transition-ease)',
-                opacity: activeSection === link.id ? 1 : 0.6,
+                opacity: activeSection === link.id ? 1 : 0.5,
                 letterSpacing: '0.05em',
                 textTransform: 'uppercase',
                 display: 'inline-block',
                 whiteSpace: 'nowrap',
-                flexShrink: 0
+                flexShrink: 0,
+                fontFamily: 'var(--font-display, inherit)'
               }}
               onMouseEnter={(e) => {
                 if (activeSection !== link.id) {
                   e.currentTarget.style.opacity = '1';
-                  e.currentTarget.style.background = 'var(--panel-bg)';
+                  e.currentTarget.style.background = 'var(--bg-card)';
                 }
               }}
               onMouseLeave={(e) => {
                 if (activeSection !== link.id) {
-                  e.currentTarget.style.opacity = '0.6';
+                  e.currentTarget.style.opacity = '0.5';
                   e.currentTarget.style.background = 'transparent';
                 }
               }}
@@ -159,7 +160,7 @@ const Navbar = ({ theme, toggleTheme, onViewChange }: NavbarProps) => {
         ))}
 
         {/* Vertical Divider */}
-        <div style={{ width: '1px', height: '24px', background: 'var(--panel-border)', margin: isMobile ? '0 4px' : '0 0.5rem' }} />      
+        <div style={{ width: '1px', height: '24px', background: 'var(--border-subtle)', margin: isMobile ? '0 4px' : '0 0.5rem' }} />      
 
         {/* Theme Toggle in Navbar */}
         <Magnetic>
@@ -171,15 +172,15 @@ const Navbar = ({ theme, toggleTheme, onViewChange }: NavbarProps) => {
               border: 'none',
               borderRadius: '50%',
               cursor: 'pointer',
-              color: 'var(--text-main)',
+              color: 'var(--text-primary, var(--text-main))',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              transition: 'all 0.3s ease',
+              transition: 'all 0.3s ease, transform 0.5s cubic-bezier(0.16, 1, 0.3, 1)',
               opacity: 0.8
             }}
-            onMouseEnter={(e) => { e.currentTarget.style.opacity = '1'; e.currentTarget.style.background = 'var(--panel-bg)'; }}
-            onMouseLeave={(e) => { e.currentTarget.style.opacity = '0.8'; e.currentTarget.style.background = 'transparent'; }}
+            onMouseEnter={(e) => { e.currentTarget.style.opacity = '1'; e.currentTarget.style.background = 'var(--bg-card)'; e.currentTarget.style.transform = 'rotate(30deg)'; }}
+            onMouseLeave={(e) => { e.currentTarget.style.opacity = '0.8'; e.currentTarget.style.background = 'transparent'; e.currentTarget.style.transform = 'rotate(0deg)'; }}
             aria-label="Toggle Theme"
           >
             {theme === 'dark' ? <Sun size={isMobile ? 18 : 20} /> : <Moon size={isMobile ? 18 : 20} />}

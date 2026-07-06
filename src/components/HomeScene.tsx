@@ -81,13 +81,13 @@ const CrystalField = () => {
 const HomeScene = () => {
   return (
     <div style={{ 
-      position: 'absolute', 
+      position: 'fixed', 
       top: 0, 
       left: 0, 
-      width: '100%', 
-      height: '100vh', // Explicit vh
-      zIndex: 1, 
-      pointerEvents: 'auto'
+      width: '100vw', 
+      height: '100vh', 
+      zIndex: 0, 
+      pointerEvents: 'none'
     }}>
       <Canvas 
         dpr={[1, 2]} 
@@ -101,12 +101,6 @@ const HomeScene = () => {
         <directionalLight position={[0, 0, 5]} intensity={1} color="#ffffff" />
         
         <CrystalField />
-        
-        {/* Confirmed visible test mesh */}
-        <mesh position={[0, 0, -2]}>
-          <sphereGeometry args={[1.5, 32, 32]} />
-          <meshBasicMaterial color="#00ffcc" wireframe transparent opacity={0.3} />
-        </mesh>
       </Canvas>
     </div>
   );

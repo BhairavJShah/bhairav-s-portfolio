@@ -1,4 +1,6 @@
 import { ArrowLeft, Cpu, Database, Zap, Terminal, Code2, Layers, Globe, Construction, BrainCircuit, ShieldCheck } from 'lucide-react';
+import { motion } from 'framer-motion';
+import Magnetic from './Magnetic';
 import '../styles/Global.css';
 
 const projectData: Record<string, any> = {
@@ -136,29 +138,57 @@ const CaseStudy = ({ id, onViewChange }: CaseStudyProps) => {
   const isWip = project.status === 'wip';
 
   return (
-    <div style={{ minHeight: '100vh', backgroundColor: 'var(--bg-color)', paddingTop: '100px', color: 'var(--text-main)' }}>
+    <motion.div 
+      initial={{ opacity: 0, y: 15 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: 15 }}
+      transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+      style={{ minHeight: '100vh', backgroundColor: 'var(--bg-color)', paddingTop: '100px', color: 'var(--text-main)', position: 'relative', zIndex: 10 }}
+    >
       <div className="container" style={{ maxWidth: 'var(--container-width)', margin: '0 auto', padding: '0 24px' }}>
-        <button 
-          onClick={() => onViewChange('home')}
-          style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', color: 'var(--text-sub)', background: 'none', border: 'none', cursor: 'pointer', marginBottom: '3rem', fontSize: '0.9rem', fontWeight: 600, textDecoration: 'none' }}
-        >
-          <ArrowLeft size={18} /> BACK_TO_PROJECTS
-        </button>
+        <Magnetic>
+          <button 
+            onClick={() => onViewChange('home')}
+            style={{ 
+              display: 'flex', 
+              alignItems: 'center', 
+              gap: '0.6rem', 
+              color: 'var(--text-main)', 
+              background: 'var(--bg-card)', 
+              border: '1px solid var(--panel-border)', 
+              padding: '0.8rem 1.8rem', 
+              borderRadius: 'var(--radius-full)', 
+              cursor: 'pointer', 
+              marginBottom: '3rem', 
+              fontSize: '0.85rem', 
+              fontWeight: 700, 
+              transition: 'all 0.3s ease',
+              backdropFilter: 'blur(10px)',
+              textTransform: 'uppercase',
+              letterSpacing: '0.05em'
+            }}
+          >
+            <ArrowLeft size={16} /> BACK HOME
+          </button>
+        </Magnetic>
 
         {isWip && (
           <div style={{
             background: 'var(--accent-soft)',
             border: '1px solid var(--accent)',
-            padding: '1rem 2rem',
-            borderRadius: '12px',
+            padding: '1.2rem 2rem',
+            borderRadius: '16px',
             marginBottom: '3rem',
             display: 'flex',
             alignItems: 'center',
             gap: '1rem',
-            color: 'var(--accent)'
+            color: 'var(--accent)',
+            boxShadow: '0 10px 30px var(--accent-soft)'
           }}>
             <Construction size={20} />
-            <span style={{ fontWeight: 800, fontSize: '0.9rem', letterSpacing: '0.1em' }}>CURRENTLY_WORKING_ON_THIS_PROJECT_SYSTEMS_ARE_BEING_OPTIMIZED</span>
+            <span style={{ fontWeight: 800, fontSize: '0.9rem', letterSpacing: '0.05em', textTransform: 'uppercase', fontFamily: 'monospace' }}>
+              System Optimization in Progress
+            </span>
           </div>
         )}
 
@@ -173,68 +203,80 @@ const CaseStudy = ({ id, onViewChange }: CaseStudyProps) => {
               )}
             </div>
 
-            <h1 style={{ fontSize: 'clamp(2.5rem, 8vw, 5rem)', fontWeight: 900, margin: '1rem 0 2rem', lineHeight: 1, color: 'var(--text-main)' }}>
+            <h1 className="gradient-text" style={{ fontSize: 'clamp(2.5rem, 6vw, 4.5rem)', fontWeight: 900, margin: '1rem 0 2rem', lineHeight: 1.15 }}>
               {project.title}
             </h1>
 
-            <p style={{ fontSize: '1.2rem', color: 'var(--text-sub)', marginBottom: '3rem', lineHeight: 1.6 }}>
+            <p style={{ fontSize: '1.15rem', color: 'var(--text-sub)', marginBottom: '3rem', lineHeight: 1.65 }}>
               {project.overview}
             </p>
 
-            <div style={{ display: 'flex', gap: '1.5rem', marginBottom: '4rem' }}>
-              <a
-                href={isWip ? undefined : "https://github.com/BhairavJShah"}
-                target="_blank"
-                rel="noopener noreferrer"
-                style={{ textDecoration: 'none', pointerEvents: isWip ? 'none' : 'auto' }}
-              >
-                <button
-                  disabled={isWip}
-                  style={{
-                    padding: '1.2rem 3rem',
-                    background: isWip ? 'var(--panel-bg)' : 'var(--accent)',
-                    color: isWip ? 'var(--text-sub)' : '#000',
-                    border: 'none',
-                    borderRadius: '100px',
-                    fontWeight: 800,
-                    fontSize: '0.9rem',
-                    cursor: isWip ? 'not-allowed' : 'pointer',
-                    opacity: isWip ? 0.5 : 1,
-                    transition: 'all 0.3s ease',
-                    letterSpacing: '0.1em'
-                  }}
-                >
-                  {isWip ? 'TRY_NOW_DISABLED' : 'TRY_NOW'}
-                </button>
-              </a>
-
-              {!isWip && (
+            <div style={{ display: 'flex', gap: '1.5rem', marginBottom: '4rem', flexWrap: 'wrap' }}>
+              <Magnetic>
                 <a
-                  href="https://github.com/BhairavJShah"
+                  href={isWip ? undefined : "https://github.com/BhairavJShah"}
                   target="_blank"
                   rel="noopener noreferrer"
-                  style={{ textDecoration: 'none' }}
+                  style={{ textDecoration: 'none', pointerEvents: isWip ? 'none' : 'auto' }}
                 >
                   <button
+                    disabled={isWip}
                     style={{
-                      padding: '1.2rem 3rem',
-                      background: 'transparent',
-                      color: 'var(--text-main)',
-                      border: '1px solid var(--panel-border)',
+                      padding: '1.1rem 2.5rem',
+                      background: isWip ? 'var(--panel-bg)' : 'var(--accent)',
+                      color: isWip ? 'var(--text-sub)' : '#000',
+                      border: 'none',
                       borderRadius: '100px',
                       fontWeight: 800,
-                      fontSize: '0.9rem',
-                      cursor: 'pointer',
-                      letterSpacing: '0.1em'
+                      fontSize: '0.85rem',
+                      cursor: isWip ? 'not-allowed' : 'pointer',
+                      opacity: isWip ? 0.5 : 1,
+                      transition: 'all 0.3s ease',
+                      letterSpacing: '0.08em',
+                      textTransform: 'uppercase'
                     }}
                   >
-                    VIEW_SOURCE
+                    {isWip ? 'TRY_NOW_DISABLED' : 'TRY_NOW'}
                   </button>
                 </a>
+              </Magnetic>
+
+              {!isWip && (
+                <Magnetic>
+                  <a
+                    href="https://github.com/BhairavJShah"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    style={{ textDecoration: 'none' }}
+                  >
+                    <button
+                      style={{
+                        padding: '1.1rem 2.5rem',
+                        background: 'transparent',
+                        color: 'var(--text-main)',
+                        border: '1px solid var(--panel-border)',
+                        borderRadius: '100px',
+                        fontWeight: 800,
+                        fontSize: '0.85rem',
+                        cursor: 'pointer',
+                        letterSpacing: '0.08em',
+                        transition: 'all 0.3s ease',
+                        textTransform: 'uppercase'
+                      }}
+                    >
+                      VIEW_SOURCE
+                    </button>
+                  </a>
+                </Magnetic>
               )}
             </div>
 
-            <div className="glass-card" style={{ padding: '2.5rem', marginBottom: '4rem' }}>
+            <motion.div 
+              className="glass-card" 
+              style={{ padding: '2.5rem', marginBottom: '4rem', borderRadius: '24px' }}
+              whileHover={{ y: -6, borderColor: 'var(--accent)', boxShadow: '0 20px 40px var(--shadow)' }}
+              transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+            >
               <h3 style={{ fontSize: '1.1rem', fontWeight: 800, marginBottom: '2.5rem', display: 'flex', alignItems: 'center', gap: '0.75rem', color: 'var(--accent)' }}>
                 <Terminal size={20} /> TECHNICAL_SPECIFICATIONS
               </h3>
@@ -249,13 +291,17 @@ const CaseStudy = ({ id, onViewChange }: CaseStudyProps) => {
                   </div>
                 ))}
               </div>
-            </div>
+            </motion.div>
           </div>
 
           <div style={{ position: 'relative' }}>
-            <div style={{ borderRadius: '40px', overflow: 'hidden', border: '1px solid var(--panel-border)', height: 'clamp(300px, 50vh, 600px)', boxShadow: '0 30px 60px var(--shadow)' }}>
+            <motion.div 
+              style={{ borderRadius: '40px', overflow: 'hidden', border: '1px solid var(--panel-border)', height: 'clamp(300px, 50vh, 600px)', boxShadow: '0 30px 60px var(--shadow)', position: 'relative' }}
+              whileHover={{ scale: 1.02 }}
+              transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+            >
               <img src={project.image} alt={project.title} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-            </div>
+            </motion.div>
 
             {isWip && (
               <div style={{
@@ -291,7 +337,7 @@ const CaseStudy = ({ id, onViewChange }: CaseStudyProps) => {
           </div>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 };
 

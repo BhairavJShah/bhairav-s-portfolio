@@ -18,6 +18,7 @@ import ArchitecturalGrid from './components/ArchitecturalGrid';
 import Particles from './components/Particles';
 import BackdropSelector from './components/BackdropSelector';
 import ScrollStickman from './components/ScrollStickman';
+import { useDevice } from './hooks/useDevice';
 
 import './styles/Global.css';
 
@@ -33,6 +34,7 @@ const Home = ({ onViewChange }: { onViewChange: (view: string, id?: string) => v
 );
 
 function App() {
+  const { isMobile } = useDevice();
   const [isLoading, setIsLoading] = useState(() => {
     if (typeof window !== 'undefined') {
       return !sessionStorage.getItem('portfolio-preloaded');
@@ -88,10 +90,16 @@ function App() {
       <div style={{ minHeight: '100vh', width: '100%', position: 'relative', backgroundColor: 'var(--bg-color)', transition: 'background-color 0.5s ease' }}>
 
         {/* Global Interactive Backdrop System */}
-        {activeBg === 'crystals' && <HomeScene />}
-        {activeBg === 'neural' && <NetworkBackground />}
-        {activeBg === 'voxel' && <ArchitecturalGrid />}
-        {activeBg === 'particles' && <Particles moveSpeed={0.3} />}
+        {isMobile ? (
+          <div className="mobile-ambient-bg" />
+        ) : (
+          <>
+            {activeBg === 'crystals' && <HomeScene />}
+            {activeBg === 'neural' && <NetworkBackground />}
+            {activeBg === 'voxel' && <ArchitecturalGrid />}
+            {activeBg === 'particles' && <Particles moveSpeed={0.3} />}
+          </>
+        )}
 
         {/* Ambient Gradient Orbs */}
         <div style={{ position: 'fixed', top: '-20%', right: '-10%', width: '600px', height: '600px', borderRadius: '50%', background: 'radial-gradient(circle, rgba(0,245,212,0.08) 0%, transparent 70%)', filter: 'blur(60px)', pointerEvents: 'none', zIndex: 0, animation: 'float 20s ease-in-out infinite' }} />

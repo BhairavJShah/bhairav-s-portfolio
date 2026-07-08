@@ -1,250 +1,100 @@
 import { motion } from 'framer-motion';
-import { Mail, Github, Linkedin, MessageSquare, Phone, MapPin } from 'lucide-react';
-import Magnetic from './Magnetic';
+import { Mail, Github, Linkedin, MessageSquare, ArrowUpRight, Phone } from 'lucide-react';
 
 const Contact = () => {
-  const email = 'j.bhairavshah@gmail.com';
-
-  const socialLinks = [
-    { icon: <Mail size={22} />, href: 'mailto:j.bhairavshah@gmail.com', label: 'Email' },
-    { icon: <Linkedin size={22} />, href: 'https://linkedin.com/in/bhairav-j-shah', label: 'LinkedIn' },
-    { icon: <Github size={22} />, href: 'https://github.com/BhairavJShah', label: 'GitHub' },
-    { icon: <Phone size={22} />, href: 'tel:+918667603233', label: 'Phone' },
-    { icon: <MessageSquare size={22} />, href: 'https://wa.me/918667603233', label: 'WhatsApp' },
-  ];
-
   return (
-    <footer id="contact" style={{ position: 'relative', overflow: 'hidden' }}>
+    <footer id="contact" style={{ padding: '4rem 0', position: 'relative', overflow: 'hidden' }}>
       <div className="content-block">
+        
+        {/* Massive Background Text */}
+        <div style={{ position: 'absolute', top: '10%', left: '-5%', zIndex: 0, opacity: 0.03, pointerEvents: 'none' }}>
+          <h2 style={{ fontSize: '30vw', fontWeight: 900, color: 'var(--text-main)', lineHeight: 0.8 }}>CONTACT</h2>
+        </div>
+
         <div className="container" style={{ position: 'relative', zIndex: 10 }}>
-
-          {/* CTA Content — Centered */}
-          <div style={{ textAlign: 'center', padding: 'clamp(3rem, 8vh, 8rem) 0' }}>
-
-            {/* Section Label */}
-            <motion.span
-              initial={{ opacity: 0 }}
-              whileInView={{ opacity: 1 }}
-              viewport={{ once: true }}
-              style={{
-                color: 'var(--accent)',
-                fontSize: '0.85rem',
-                fontWeight: 800,
-                letterSpacing: '0.4em',
-                display: 'block',
-                marginBottom: '2.5rem'
-              }}
-            >
-              [ LET'S CONNECT ]
-            </motion.span>
-
-            {/* Massive Title — Staggered Lines */}
-            <div style={{ marginBottom: '3rem' }}>
+          
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(12, 1fr)', gap: '4rem', alignItems: 'center' }}>
+            
+            <div style={{ gridColumn: 'span 7' }}>
               <motion.div
-                initial={{ opacity: 0, y: 40 }}
+                initial={{ opacity: 0, y: 50 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.8, delay: 0 }}
+                transition={{ duration: 1 }}
               >
-                <h2 style={{
-                  fontSize: 'clamp(2rem, 6vw, 5rem)',
-                  fontWeight: 900,
-                  color: 'var(--text-main)',
-                  lineHeight: 1.1,
-                  margin: 0
-                }}>
-                  LET'S BUILD
+                <span style={{ color: 'var(--accent)', fontSize: '1rem', fontWeight: 800, letterSpacing: '0.4em' }}>[ CONNECT_TERMINAL ]</span>
+                <h2 style={{ fontSize: 'clamp(3rem, 8vw, 8rem)', lineHeight: 0.9, marginTop: '2rem', marginBottom: '3rem', color: 'var(--text-main)' }}>
+                  READY TO <br/> <span style={{ color: 'var(--accent)' }}>INITIALIZE?</span>
                 </h2>
-              </motion.div>
-
-              <motion.div
-                initial={{ opacity: 0, y: 40 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.8, delay: 0.1 }}
-              >
-                <h2
-                  className="gradient-text"
-                  style={{
-                    fontSize: 'clamp(2rem, 6vw, 5rem)',
-                    fontWeight: 900,
-                    lineHeight: 1.1,
-                    margin: 0,
-                    background: 'linear-gradient(135deg, var(--accent), var(--text-main))',
-                    WebkitBackgroundClip: 'text',
-                    WebkitTextFillColor: 'transparent',
-                    backgroundClip: 'text'
-                  }}
-                >
-                  SOMETHING
-                </h2>
-              </motion.div>
-
-              <motion.div
-                initial={{ opacity: 0, y: 40 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.8, delay: 0.2 }}
-              >
-                <h2 style={{
-                  fontSize: 'clamp(2rem, 6vw, 5rem)',
-                  fontWeight: 900,
-                  color: 'var(--text-main)',
-                  lineHeight: 1.1,
-                  margin: 0
-                }}>
-                  EXTRAORDINARY.
-                </h2>
+                <p style={{ fontSize: '1.5rem', color: 'var(--text-sub)', lineHeight: 1.4, maxWidth: '600px' }}>
+                  Currently available for high-velocity AI systems and full-stack development. Let’s build the future together.
+                </p>
               </motion.div>
             </div>
 
-            {/* Email Link */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: 0.3 }}
-              style={{ marginBottom: '2.5rem' }}
-            >
-              <a
-                href={`mailto:${email}`}
-                className="contact-email"
-                style={{
-                  fontFamily: 'monospace',
-                  fontSize: 'clamp(1rem, 2.5vw, 1.8rem)',
-                  color: 'var(--text-sub)',
-                  textDecoration: 'none',
-                  transition: 'all 0.3s ease',
-                  borderBottom: '2px solid transparent',
-                  paddingBottom: '4px'
-                }}
-              >
-                {email}
-              </a>
-            </motion.div>
-
-            {/* Social Icons Row */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: 0.4 }}
-              style={{ display: 'flex', justifyContent: 'center', gap: '1rem', marginBottom: '2.5rem', flexWrap: 'wrap' }}
-            >
-              {socialLinks.map((link, i) => (
-                <Magnetic key={i}>
-                  <a
-                    href={link.href}
-                    target="_blank"
-                    rel="noreferrer"
-                    aria-label={link.label}
-                    className="social-icon-btn"
-                    style={{
-                      width: '48px',
-                      height: '48px',
-                      borderRadius: '50%',
-                      background: 'var(--card-bg)',
-                      border: '1px solid var(--panel-border)',
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      color: 'var(--text-main)',
-                      textDecoration: 'none',
-                      transition: 'all 0.3s ease',
-                      backdropFilter: 'blur(10px)'
-                    }}
+            <div style={{ gridColumn: 'span 5', display: 'flex', flexDirection: 'column', gap: '2rem' }}>
+              {[
+                { icon: <Mail size={24}/>, label: 'EMAIL', value: 'j.bhairavshah@gmail.com', href: 'mailto:j.bhairavshah@gmail.com' },
+                { icon: <Linkedin size={24}/>, label: 'LINKEDIN', value: 'bhairav-j-shah', href: 'https://linkedin.com/in/bhairav-j-shah' },
+                { icon: <Github size={24}/>, label: 'GITHUB', value: 'BhairavJShah', href: 'https://github.com/BhairavJShah' },
+                { icon: <Phone size={24}/>, label: 'PHONE', value: '+91 86676 03233', href: 'tel:+918667603233' },
+                { icon: <MessageSquare size={24}/>, label: 'WHATSAPP', value: 'Chat Now', href: 'https://wa.me/918667603233' }
+              ].map((link, i) => (
+                <motion.a 
+                  key={i}
+                  href={link.href}
+                  target="_blank"
+                  rel="noreferrer"
+                  initial={{ opacity: 0, x: 50 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.6, delay: i * 0.1 }}
+                  style={{ textDecoration: 'none' }}
+                >
+                  <div className="glass-card" style={{ 
+                    padding: '2rem', 
+                    display: 'flex', 
+                    alignItems: 'center', 
+                    justifyContent: 'space-between',
+                    transition: 'all 0.3s ease'
+                  }}
+                  onMouseEnter={(e) => { e.currentTarget.style.background = 'var(--accent-soft)'; e.currentTarget.style.borderColor = 'var(--accent)'; }}
+                  onMouseLeave={(e) => { e.currentTarget.style.background = 'var(--card-bg)'; e.currentTarget.style.borderColor = 'var(--panel-border)'; }}
                   >
-                    {link.icon}
-                  </a>
-                </Magnetic>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '2rem' }}>
+                      <div style={{ color: 'var(--accent)' }}>{link.icon}</div>
+                      <div>
+                        <p style={{ color: 'var(--text-sub)', fontSize: '0.7rem', fontWeight: 800, letterSpacing: '0.2em' }}>{link.label}</p>
+                        <p style={{ color: 'var(--text-main)', fontSize: '1.1rem', fontWeight: 700 }}>{link.value}</p>
+                      </div>
+                    </div>
+                    <ArrowUpRight size={20} color="var(--outline-stroke)" />
+                  </div>
+                </motion.a>
               ))}
-            </motion.div>
+            </div>
 
-            {/* Location */}
-            <motion.div
-              initial={{ opacity: 0 }}
-              whileInView={{ opacity: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: 0.5 }}
-              style={{
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                gap: '0.5rem',
-                color: 'var(--text-sub)',
-                fontSize: '0.85rem',
-                fontFamily: 'monospace',
-                marginBottom: '1.5rem'
-              }}
-            >
-              <MapPin size={14} />
-              <span>19.0760°N, 72.8777°E — IST (UTC+5:30)</span>
-            </motion.div>
-
-            {/* Availability Badge */}
-            <motion.div
-              initial={{ opacity: 0, scale: 0.95 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: 0.6 }}
-              style={{
-                display: 'inline-flex',
-                alignItems: 'center',
-                gap: '0.6rem',
-                padding: '0.6rem 1.4rem',
-                background: 'var(--card-bg)',
-                border: '1px solid var(--panel-border)',
-                borderRadius: '100px',
-                backdropFilter: 'blur(10px)',
-                fontSize: '0.82rem',
-                fontWeight: 600,
-                color: 'var(--text-sub)'
-              }}
-            >
-              <span style={{
-                width: '8px',
-                height: '8px',
-                borderRadius: '50%',
-                background: '#22c55e',
-                boxShadow: '0 0 8px rgba(34, 197, 94, 0.6)',
-                display: 'inline-block'
-              }} />
-              Open to opportunities
-            </motion.div>
           </div>
 
-          {/* Footer */}
-          <div style={{
-            marginTop: '6rem',
-            borderTop: '1px solid var(--panel-border)',
-            paddingTop: '2rem',
-            textAlign: 'center'
+          <div style={{ 
+            marginTop: '10vh', 
+            paddingTop: '3rem', 
+            borderTop: '1px solid var(--panel-border)', 
+            display: 'flex', 
+            justifyContent: 'space-between', 
+            alignItems: 'center',
+            flexWrap: 'wrap',
+            gap: '2rem'
           }}>
-            <p style={{
-              fontSize: '0.8rem',
-              color: 'var(--text-sub)',
-              opacity: 0.6,
-              fontWeight: 500
-            }}>
-              © 2026 Bhairav J. Shah — Engineered with precision.
-            </p>
+            <p style={{ color: 'var(--text-sub)', fontSize: '0.9rem', fontWeight: 600 }}>© {new Date().getFullYear()} BHAIRAV SHAH. ALL RIGHTS RESERVED.</p>
+            <div style={{ display: 'flex', gap: '3rem' }}>
+              <span style={{ color: 'var(--outline-stroke)', fontSize: '0.8rem', fontWeight: 800, letterSpacing: '0.2em' }}>BUILT WITH VIBE CODING</span>
+              <span style={{ color: 'var(--outline-stroke)', fontSize: '0.8rem', fontWeight: 800, letterSpacing: '0.2em' }}>V5.0 // 2026</span>
+            </div>
           </div>
 
         </div>
       </div>
-
-      <style>{`
-        .contact-email:hover {
-          color: var(--accent) !important;
-          border-bottom-color: var(--accent) !important;
-        }
-        .social-icon-btn:hover {
-          border-color: var(--accent) !important;
-          color: var(--accent) !important;
-          box-shadow: 0 0 20px var(--accent-soft);
-          transform: translateY(-2px);
-        }
-      `}</style>
     </footer>
   );
 };

@@ -63,24 +63,19 @@ const ExploreProjects = ({ onViewChange }: ExploreProjectsProps) => {
               initial={{ opacity: 0, y: 50 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: idx * 0.1, duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-              className="glass-card project-card"
               style={{
+                background: 'var(--panel-bg)',
                 border: '1px solid var(--panel-border)',
                 borderRadius: '40px',
                 padding: '3rem',
                 display: 'flex',
                 flexDirection: 'column',
                 gap: '2.5rem',
-                overflow: 'hidden'
-              }}
-              whileHover={{ 
-                y: -8, 
-                borderColor: 'var(--accent)', 
-                boxShadow: '0 20px 40px var(--shadow)' 
+                backdropFilter: 'blur(20px)'
               }}
             >
               <div style={{ width: '100%', height: '300px', borderRadius: '24px', overflow: 'hidden', position: 'relative' }}>
-                <img className="project-image" src={project.image} alt="" style={{ width: '100%', height: '100%', objectFit: 'cover', transition: 'transform 0.6s cubic-bezier(0.16, 1, 0.3, 1)' }} />
+                <img src={project.image} alt="" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                 <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, rgba(0,0,0,0.4), transparent)' }} />   
               </div>
               <div>
@@ -140,11 +135,6 @@ const ExploreProjects = ({ onViewChange }: ExploreProjectsProps) => {
           ))}
         </div>
       </div>
-      <style>{`
-        .project-card:hover .project-image {
-          transform: scale(1.08);
-        }
-      `}</style>
     </div>
   );
 };

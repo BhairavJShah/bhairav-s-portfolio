@@ -36,20 +36,21 @@ const About = () => {
     <section id="about">
       <div className="content-block">
         <div className="container">
+          
           <div className="bento-grid">
-
-            {/* Intro Bento - Full Width */}
-            <motion.div
+            
+            {/* Intro Bento - Wide Header */}
+            <motion.div 
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.8 }}
-              className="bento-card bento-12"
+              className="glass-card bento-12" 
               style={{ padding: 'clamp(2rem, 5vw, 4rem)', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}
             >
-              <span className="section-label" style={{ marginBottom: '1.5rem' }}>[ THE_ARCHITECT ]</span>
+              <span style={{ color: 'var(--accent)', fontSize: '0.9rem', fontWeight: 800, letterSpacing: '0.2em', marginBottom: '1.5rem' }}>[ THE_ARCHITECT ]</span>
               <h2 style={{ fontSize: 'clamp(2.5rem, 5vw, 5rem)', lineHeight: 1, marginBottom: '2.5rem', color: 'var(--text-main)' }}>
-                BHAIRAV J. SHAH <br/> <span className="gradient-text">FULL-STACK ENGINEER.</span>
+                BHAIRAV J. SHAH <br/> <span className="title-outline">FULL-STACK ENGINEER.</span>
               </h2>
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '3rem' }}>
                 <p style={{ color: 'var(--text-sub)', fontSize: '1.2rem', lineHeight: 1.6 }}>
@@ -61,60 +62,51 @@ const About = () => {
               </div>
             </motion.div>
 
-            {/* Impact Metrics */}
+            {/* Impact Metrics - Full Row Filling */}
             {impactMetrics.map((metric, i) => (
-              <motion.div
+              <motion.div 
                 key={i}
                 initial={{ opacity: 0, scale: 0.9 }}
                 whileInView={{ opacity: 1, scale: 1 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: i * 0.1 }}
-                className="bento-card bento-3"
-                style={{
-                  padding: '2.5rem',
-                  display: 'flex',
-                  flexDirection: 'column',
-                  gap: '1.5rem',
-                  cursor: 'default'
+                className="glass-card bento-3" 
+                style={{ 
+                  padding: '2.5rem', 
+                  display: 'flex', 
+                  flexDirection: 'column', 
+                  gap: '1.5rem'
                 }}
-                whileHover={{ y: -8, borderColor: 'var(--accent)', boxShadow: '0 10px 40px var(--accent-soft)' }}
+                animate={{ backgroundColor: 'var(--card-bg)', borderColor: 'var(--panel-border)', y: 0 }}
+                whileHover={{ y: -10, borderColor: 'var(--accent)', backgroundColor: 'var(--card-bg)', boxShadow: '0 10px 30px var(--accent-soft)' }}
               >
                 <div style={{ color: 'var(--accent)', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                  <div style={{
-                    padding: '0.8rem', background: 'var(--accent-soft)', borderRadius: '12px',
-                    display: 'flex', alignItems: 'center', justifyContent: 'center'
-                  }}>
+                  <div style={{ padding: '0.8rem', background: 'var(--accent-soft)', borderRadius: '12px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                     {metric.icon}
                   </div>
                   <CheckCircle2 size={16} opacity={0.3} />
                 </div>
                 <div>
-                  <div style={{
-                    fontSize: '3rem', fontWeight: 900, color: 'var(--text-main)',
-                    fontFamily: 'Syncopate', lineHeight: 1, marginBottom: '0.5rem'
-                  }}>
+                  <div style={{ fontSize: '3rem', fontWeight: 900, color: 'var(--text-main)', fontFamily: 'Syncopate', lineHeight: 1, marginBottom: '0.5rem' }}>
                     {metric.value}
                   </div>
-                  <p className="section-label" style={{ color: 'var(--accent)', marginBottom: 0 }}>
+                  <p style={{ color: 'var(--accent)', fontSize: '0.75rem', fontWeight: 800, letterSpacing: '0.15em', textTransform: 'uppercase' }}>
                     {metric.label}
                   </p>
                 </div>
-                <p style={{
-                  color: 'var(--text-sub)', fontSize: '0.85rem', lineHeight: 1.4,
-                  borderTop: '1px solid var(--panel-border)', paddingTop: '1rem'
-                }}>
+                <p style={{ color: 'var(--text-sub)', fontSize: '0.85rem', lineHeight: 1.4, borderTop: '1px solid var(--panel-border)', paddingTop: '1rem' }}>
                   {metric.sub}
                 </p>
               </motion.div>
             ))}
 
             {/* Experience Bento */}
-            <motion.div
+            <motion.div 
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.8 }}
-              className="bento-card bento-8"
+              className="glass-card bento-8" 
               style={{ padding: 'clamp(2rem, 5vw, 4rem)' }}
             >
               <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', marginBottom: '3rem', color: 'var(--accent)' }}>
@@ -127,20 +119,13 @@ const About = () => {
               <div style={{ display: 'flex', flexDirection: 'column', gap: '3.5rem' }}>
                 {experience.map((exp, i) => (
                   <div key={i} style={{ position: 'relative', paddingLeft: '2.5rem', borderLeft: '2px solid var(--panel-border)' }}>
-                    <div style={{
-                      position: 'absolute', left: '-7px', top: '5px', width: '12px', height: '12px',
-                      borderRadius: '50%', background: 'var(--accent)', boxShadow: '0 0 15px var(--accent)'
-                    }} />
+                    <div style={{ position: 'absolute', left: '-7px', top: '5px', width: '12px', height: '12px', borderRadius: '50%', background: 'var(--accent)', boxShadow: `0 0 15px var(--accent)` }} />
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '1rem', flexWrap: 'wrap', gap: '1rem' }}>
                       <div>
                         <h4 style={{ fontSize: '1.3rem', color: 'var(--text-main)', fontWeight: 800, marginBottom: '0.3rem' }}>{exp.role}</h4>
                         <p style={{ color: 'var(--accent)', fontWeight: 700, letterSpacing: '0.1em', fontSize: '0.9rem' }}>{exp.company}</p>
                       </div>
-                      <span style={{
-                        color: 'var(--text-sub)', fontSize: '0.85rem', padding: '0.5rem 1.2rem',
-                        background: 'var(--card-bg)', borderRadius: '100px', fontWeight: 600,
-                        border: '1px solid var(--panel-border)'
-                      }}>{exp.period}</span>
+                      <span style={{ color: 'var(--text-sub)', fontSize: '0.85rem', padding: '0.5rem 1.2rem', background: 'var(--panel-bg)', borderRadius: '100px', fontWeight: 600, border: '1px solid var(--panel-border)' }}>{exp.period}</span>
                     </div>
                     <p style={{ color: 'var(--text-sub)', fontSize: '1rem', lineHeight: 1.6 }}>{exp.desc}</p>
                   </div>
@@ -149,43 +134,31 @@ const About = () => {
             </motion.div>
 
             {/* Education & System Stats Bento */}
-            <motion.div
+            <motion.div 
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.8, delay: 0.1 }}
-              className="bento-card bento-4"
+              className="glass-card bento-4" 
               style={{ padding: 'clamp(2rem, 5vw, 3rem)', display: 'flex', flexDirection: 'column', gap: '3rem' }}
             >
               <div>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', marginBottom: '1.5rem', color: 'var(--accent)' }}>
-                  <div style={{
-                    padding: '0.8rem', background: 'var(--accent-soft)', borderRadius: '12px',
-                    display: 'flex', alignItems: 'center', justifyContent: 'center'
-                  }}>
+                  <div style={{ padding: '0.8rem', background: 'var(--accent-soft)', borderRadius: '12px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                     <GraduationCap size={24} />
                   </div>
                   <h3 style={{ fontSize: '1rem', fontWeight: 800, color: 'var(--text-main)' }}>EDUCATION</h3>
                 </div>
-                <p style={{ color: 'var(--text-main)', fontWeight: 700, fontSize: '1.1rem', marginBottom: '0.5rem', lineHeight: 1.4 }}>
-                  Misrimal Navajee Munoth Jain Engineering College
-                </p>
+                <p style={{ color: 'var(--text-main)', fontWeight: 700, fontSize: '1.1rem', marginBottom: '0.5rem', lineHeight: 1.4 }}>Misrimal Navajee Munoth Jain Engineering College</p>
                 <p style={{ color: 'var(--text-sub)', fontSize: '0.85rem' }}>BE in Computer Science and Engineering</p>
-                <div style={{
-                  marginTop: '1rem', padding: '0.6rem 1.2rem', background: 'var(--accent-soft)',
-                  color: 'var(--accent)', borderRadius: '100px', display: 'inline-block',
-                  fontWeight: 800, fontSize: '0.8rem', border: '1px solid var(--accent-border)'
-                }}>
-                  CGPA: 7.34/10
+                <div style={{ marginTop: '1rem', padding: '0.6rem 1.2rem', background: 'var(--accent-soft)', color: 'var(--accent)', borderRadius: '100px', display: 'inline-block', fontWeight: 800, fontSize: '0.8rem', border: '1px solid var(--accent-border)' }}>
+                  CGPA: 7.03/10
                 </div>
               </div>
 
               <div>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', marginBottom: '1.5rem', color: 'var(--accent)' }}>
-                  <div style={{
-                    padding: '0.8rem', background: 'var(--accent-soft)', borderRadius: '12px',
-                    display: 'flex', alignItems: 'center', justifyContent: 'center'
-                  }}>
+                  <div style={{ padding: '0.8rem', background: 'var(--accent-soft)', borderRadius: '12px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                     <Activity size={24} />
                   </div>
                   <h3 style={{ fontSize: '1rem', fontWeight: 800, color: 'var(--text-main)' }}>SYSTEM_HEALTH</h3>
@@ -196,54 +169,39 @@ const About = () => {
                     <span style={{ color: 'var(--accent)', fontWeight: 800 }}>STABLE</span>
                   </div>
                   <div style={{ width: '100%', height: '4px', background: 'var(--panel-border)', borderRadius: '2px' }}>
-                    <motion.div
-                      initial={{ width: 0 }}
-                      whileInView={{ width: '100%' }}
-                      transition={{ duration: 1.5, delay: 0.5 }}
-                      style={{ height: '100%', background: 'var(--accent)', borderRadius: '2px', boxShadow: '0 0 10px var(--accent)' }}
-                    />
+                    <motion.div initial={{ width: 0 }} whileInView={{ width: '100%' }} transition={{ duration: 1.5, delay: 0.5 }} style={{ height: '100%', background: 'var(--accent)', borderRadius: '2px', boxShadow: '0 0 10px var(--accent)' }} />
                   </div>
                   <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.8rem' }}>
                     <span style={{ color: 'var(--text-sub)' }}>RELIABILITY</span>
                     <span style={{ color: 'var(--accent)', fontWeight: 800 }}>99.9%</span>
                   </div>
                   <div style={{ width: '100%', height: '4px', background: 'var(--panel-border)', borderRadius: '2px' }}>
-                    <motion.div
-                      initial={{ width: 0 }}
-                      whileInView={{ width: '99.9%' }}
-                      transition={{ duration: 1.5, delay: 0.7 }}
-                      style={{ height: '100%', background: 'var(--accent)', borderRadius: '2px', boxShadow: '0 0 10px var(--accent)' }}
-                    />
+                    <motion.div initial={{ width: 0 }} whileInView={{ width: '99.9%' }} transition={{ duration: 1.5, delay: 0.7 }} style={{ height: '100%', background: 'var(--accent)', borderRadius: '2px', boxShadow: '0 0 10px var(--accent)' }} />
                   </div>
                 </div>
               </div>
             </motion.div>
 
-            {/* Core Skills */}
+            {/* Bottom Row Skills - Expanded to fill more space */}
             {coreSkills.map((item, i) => (
-              <motion.div
-                key={i}
-                className="bento-card skill-bento bento-3"
-                style={{
-                  padding: '2.5rem',
-                  display: 'flex',
-                  flexDirection: 'column',
-                  alignItems: 'flex-start',
+              <motion.div 
+                key={i} 
+                className="glass-card bento-3" 
+                style={{ 
+                  padding: '2.5rem', 
+                  display: 'flex', 
+                  flexDirection: 'column', 
+                  alignItems: 'flex-start', 
                   cursor: 'default'
                 }}
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: 0.2 + (i * 0.1) }}
-                whileHover={{ y: -8, borderColor: 'var(--accent)', boxShadow: '0 10px 40px var(--accent-soft)' }}
+                animate={{ backgroundColor: 'var(--card-bg)', borderColor: 'var(--panel-border)', y: 0 }}
+                whileHover={{ y: -10, borderColor: 'var(--accent)', backgroundColor: 'var(--card-bg)', boxShadow: '0 10px 30px var(--accent-soft)' }}
               >
-                <div className="skill-icon-wrap" style={{
-                  padding: '1rem', background: 'var(--accent-soft)', borderRadius: '16px',
-                  color: 'var(--accent)', marginBottom: '1.5rem',
-                  border: '1px solid var(--accent-border)',
-                  display: 'flex', alignItems: 'center', justifyContent: 'center',
-                  transition: 'transform 0.4s var(--transition-ease)'
-                }}>
+                <div style={{ padding: '1rem', background: 'var(--accent-soft)', borderRadius: '16px', color: 'var(--accent)', marginBottom: '1.5rem', border: '1px solid var(--accent-border)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                   {item.icon}
                 </div>
                 <h3 style={{ fontSize: '1.1rem', marginBottom: '0.8rem', color: 'var(--text-main)', fontWeight: 800 }}>{item.title}</h3>
@@ -259,42 +217,13 @@ const About = () => {
         .bento-grid {
           display: grid;
           grid-template-columns: repeat(12, 1fr);
-          gap: 1.5rem;
+          gap: 2rem;
         }
         .bento-12 { grid-column: span 12; }
         .bento-8 { grid-column: span 8; }
         .bento-4 { grid-column: span 4; }
         .bento-3 { grid-column: span 3; }
-
-        .bento-card {
-          background: var(--card-bg);
-          backdrop-filter: blur(20px);
-          -webkit-backdrop-filter: blur(20px);
-          border: 1px solid var(--panel-border);
-          border-radius: 24px;
-          transition: transform 0.4s var(--transition-ease), border-color 0.4s ease, box-shadow 0.4s ease;
-        }
-
-        .section-label {
-          color: var(--accent);
-          font-size: 0.75rem;
-          font-weight: 800;
-          letter-spacing: 0.15em;
-          text-transform: uppercase;
-          display: block;
-        }
-
-        .gradient-text {
-          background: linear-gradient(135deg, var(--accent) 0%, #7b61ff 50%, #ff6b9d 100%);
-          -webkit-background-clip: text;
-          -webkit-text-fill-color: transparent;
-          background-clip: text;
-        }
-
-        .skill-bento:hover .skill-icon-wrap {
-          transform: scale(1.15);
-        }
-
+        
         @media (max-width: 1024px) {
           .bento-12, .bento-8, .bento-4 { grid-column: span 12; }
           .bento-3 { grid-column: span 6; }
@@ -302,7 +231,6 @@ const About = () => {
 
         @media (max-width: 640px) {
           .bento-3 { grid-column: span 12; }
-          .bento-grid { gap: 1rem; }
         }
       `}</style>
     </section>

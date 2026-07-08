@@ -67,7 +67,7 @@ const Particles = ({
     if (!ctx) return;
 
     let animationFrameId: number;
-    const pixelRatio = Math.min(window.devicePixelRatio || 1, 2);
+    const pixelRatio = 0.5; // Optimized as requested
 
     const resize = () => {
       canvas.width = window.innerWidth * pixelRatio;

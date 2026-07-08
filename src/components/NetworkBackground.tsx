@@ -139,15 +139,14 @@ const NetworkBackground = () => {
 
   return (
     <div style={{ 
-      position: 'fixed', 
+      position: 'absolute', 
       top: 0, 
       left: 0, 
-      width: '100vw', 
-      height: '100vh', 
+      width: '100%', 
+      height: '100%', 
       zIndex: 0,
       background: bgColor,
-      transition: 'background-color 0.5s ease',
-      pointerEvents: 'none'
+      transition: 'background-color 0.5s ease'
     }}>
       <Canvas camera={{ position: [0, 0, 15], fov: 45 }} gl={{ antialias: true, alpha: true }}>
         <color attach="background" args={[bgColor]} />

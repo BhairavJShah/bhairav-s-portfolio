@@ -37,8 +37,8 @@ const Contact = () => {
                 { icon: <Mail size={24}/>, label: 'EMAIL', value: 'j.bhairavshah@gmail.com', href: 'mailto:j.bhairavshah@gmail.com' },
                 { icon: <Linkedin size={24}/>, label: 'LINKEDIN', value: 'bhairav-j-shah', href: 'https://linkedin.com/in/bhairav-j-shah' },
                 { icon: <Github size={24}/>, label: 'GITHUB', value: 'BhairavJShah', href: 'https://github.com/BhairavJShah' },
-                { icon: <Phone size={24}/>, label: 'PHONE', value: '+91 86676 03233', href: 'tel:+918667603233' },
-                { icon: <MessageSquare size={24}/>, label: 'WHATSAPP', value: 'Chat Now', href: 'https://wa.me/918667603233' }
+                { icon: <Phone size={24}/>, label: 'PHONE', value: '+91 86676 03233', href: 'tel:+919087848514' },
+                { icon: <MessageSquare size={24}/>, label: 'WHATSAPP', value: 'Chat Now', href: 'https://wa.me/919087848514' }
               ].map((link, i) => (
                 <motion.a 
                   key={i}
